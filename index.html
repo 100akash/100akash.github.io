@@ -1,314 +1,605 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>[Your name] — Portfolio</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Akash Bajaj - PhD Candidate | Pavement &amp; Airfield Engineering</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=Overpass:wght@600;800;900&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --maroon: #500000;
-    --maroon-hover: #6B1414;
-    --maroon-tint: #F6E8E8;
-    --blue: #13294B;
-    --orange: #FF5F05;
-    --ink: #1C1C1A;
-    --muted: #4A4A47;
-    --border: #D8D6CE;
-    --bg: #F5F1E8;
-    --surface: #FFFFFF;
-  }
+:root{
+  --primary:#13294B;      --primary-hi:#0C1B33;
+  --secondary:#500000;    --secondary-hi:#6B1414;   --secondary-light:#7A3B3B;
+  --accent:#FF5F05;
+  --ink:#1C1C1A; --muted:#4A4A47; --line:#D8D6CE; --bg:#F5F1E8; --card:#FFFFFF;
+  --display:"Overpass",system-ui,sans-serif; --body:"IBM Plex Sans",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+  --wrap:1080px; --gutter:clamp(1.2rem,4vw,3.2rem); --nav-h:64px; --rail-w:96px; --left-w:120px; --footer-h:0px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scrollbar-gutter:stable}
+body{margin:0;min-height:100vh;display:flex;flex-direction:column;background:var(--bg);color:var(--ink);font-family:var(--body);line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding-inline:var(--gutter)}
+@media (min-width:960px){ body{padding-right:var(--rail-w);padding-left:var(--left-w)} }
 
-  * { box-sizing: border-box; }
+h1,h2,h3{font-family:var(--display);margin:0;text-transform:uppercase}
+h1{font-weight:900;letter-spacing:-.03em;line-height:.95;font-size:clamp(2.1rem,4.6vw,3.3rem)}
+h2{font-weight:900;letter-spacing:-.02em;line-height:1;font-size:clamp(1.5rem,2.7vw,2rem)}
+h3{font-weight:700;font-size:1.02rem;line-height:1.3}
+p{margin:0 0 1rem}p:last-child{margin-bottom:0}
+.mono{font-family:var(--mono);font-size:.68rem;font-weight:500;letter-spacing:.17em;text-transform:uppercase}
+.ph{color:var(--muted);background:rgba(255,95,5,.07);box-shadow:inset 0 -1px 0 rgba(255,95,5,.32);padding:0 .18em}
+.plane-svg{display:block}
 
-  body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--ink);
-    font-family: 'Inter', -apple-system, sans-serif;
-    line-height: 1.6;
-  }
+/* nav */
+.nav{position:fixed;inset:0 var(--rail-w) auto var(--left-w);height:var(--nav-h);z-index:60;display:flex;align-items:center;
+  background:rgba(245,241,232,.92);backdrop-filter:blur(8px);border-bottom:1px solid transparent;transition:border-color .25s}
+@media (max-width:959px){.nav{left:0;right:0}}
+.nav.is-stuck{border-bottom-color:var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;width:100%}
+.mark{text-decoration:none;color:var(--primary)}
+.mark b{font-family:var(--display);font-weight:900;font-size:.9rem;letter-spacing:.02em;text-transform:uppercase}
+.mark b em{font-style:normal;font-weight:600;color:var(--muted)}
 
-  h1, h2, h3 { font-family: 'Source Serif 4', Georgia, serif; font-weight: 600; margin: 0; }
+/* subpages: bolder, boxed, orange — the one place site sections are navigated from */
+.links{display:flex;gap:.55rem}
+.links a{font-family:var(--mono);font-size:.66rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;text-decoration:none;
+  color:var(--primary);padding:.55rem 1rem;border:2px solid var(--accent);border-radius:5px;background:rgba(255,95,5,.07);transition:all .2s ease}
+.links a:hover{background:var(--accent);color:#fff}
+.links a.is-active{background:var(--accent);color:#fff}
+.burger{display:none;background:none;border:1px solid var(--line);padding:.45rem .65rem;font-family:var(--mono);font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;color:var(--ink)}
 
-  .mono { font-family: 'JetBrains Mono', monospace; }
+/* ---------- left sidebar: translucent asphalt photo ---------- */
+.leftbar{position:absolute;top:0;left:calc(-1 * var(--left-w));bottom:0;width:var(--left-w);display:none;overflow:hidden;pointer-events:none;opacity:.34;
+  background-image:url('data:image/jpeg;base64,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');background-repeat:repeat-y;background-size:100% auto;background-position:top center}
+@media (min-width:960px){.leftbar{display:block}}
+.leftbar::before{content:"";position:absolute;inset:0;z-index:1;
+  background:linear-gradient(180deg,var(--bg) 0%,rgba(245,241,232,0) 14%,rgba(245,241,232,0) 86%,var(--bg) 100%)}
+.leftbar::after{content:"";position:absolute;top:0;right:0;bottom:0;width:2px;background:var(--accent);opacity:.6;z-index:2}
 
-  .wrap { max-width: 880px; margin: 0 auto; padding: 0 24px; }
+/* ---------- route map rail ---------- */
+.rail{position:fixed;top:calc(var(--nav-h) + 10px);right:14px;bottom:calc(var(--footer-h) + 10vh);width:var(--rail-w);z-index:55;display:none}
+@media (min-width:960px){.rail{display:block}}
+.rail svg{width:100%;height:100%;overflow:visible}
+.route-bg{fill:none;stroke:var(--line);stroke-width:2;stroke-dasharray:1 9;stroke-linecap:round}
+.route-fg{fill:none;stroke:var(--accent);stroke-width:2;stroke-linecap:round;stroke-dasharray:1000;stroke-dashoffset:1000;transition:stroke-dashoffset .08s linear}
+.node-dot{fill:var(--card);stroke:var(--line);stroke-width:2;transition:all .25s ease}
+.node-dot.is-past{fill:var(--primary);stroke:var(--primary)}
+.node-code{font-family:var(--mono);font-size:9px;letter-spacing:.06em;fill:var(--muted);transition:fill .25s ease}
+.node-code.is-past{fill:var(--primary);font-weight:600}
+.rail__plane{position:absolute;left:0;top:0;width:22px;height:22px;
+  transition:left .08s linear, top .08s linear, transform .12s linear;
+  filter:drop-shadow(0 2px 4px rgba(0,0,0,.16))}
+.rail__plane path{fill:var(--primary)}
 
-  /* Nav */
-  nav {
-    position: sticky; top: 0; z-index: 10;
-    background: rgba(245, 241, 232, 0.92);
-    backdrop-filter: blur(6px);
-    border-bottom: 1px solid var(--border);
-  }
-  nav .wrap { display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; }
-  nav .name { font-family: 'Source Serif 4', serif; font-weight: 600; font-size: 17px; }
-  nav ul { list-style: none; display: flex; gap: 28px; margin: 0; padding: 0; }
-  nav a { color: var(--muted); text-decoration: none; font-size: 14px; }
-  nav a:hover { color: var(--maroon); }
+.topbar{position:fixed;top:var(--nav-h);left:0;right:0;height:3px;z-index:59;background:var(--line);display:block}
+@media (min-width:960px){.topbar{display:none}}
+.topbar__fill{height:100%;width:0%;background:var(--accent);transition:width .08s linear}
 
-  /* Hero */
-  header.hero { padding: 96px 0 64px; }
-  .eyebrow {
-    font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.06em;
-    color: var(--orange); text-transform: uppercase; margin-bottom: 16px; display: block;
-  }
-  h1.title { font-size: 44px; line-height: 1.15; max-width: 620px; }
-  p.subtitle { font-size: 18px; color: var(--muted); max-width: 560px; margin-top: 18px; }
-  .hero-meta { margin-top: 32px; display: flex; gap: 24px; flex-wrap: wrap; font-size: 14px; color: var(--muted); }
-  .hero-meta span { display: flex; align-items: center; gap: 6px; }
-  .hero-meta strong { color: var(--ink); font-weight: 500; }
+/* ---------- hero ---------- */
+.hero{padding-top:calc(var(--nav-h) + 1.9rem);padding-bottom:clamp(1.8rem,4vw,2.8rem)}
+.hero .wrap{width:100%}
+.hero__grid{display:grid;grid-template-columns:1.2fr .8fr;gap:clamp(1.6rem,4vw,3rem);align-items:center}
+.eyebrow{display:flex;align-items:center;gap:.85rem;color:var(--muted);margin-bottom:1.1rem}
+.eyebrow::after{content:"";width:clamp(28px,6vw,66px);height:1px;background:var(--accent)}
+.hero h1{color:var(--primary);max-width:15ch}
+.hero h1 em{font-style:normal;color:rgba(19,41,75,.32)}
+.hero h1 .line{display:block;overflow:hidden}
+.hero h1 .line>span{display:block;animation:rise .9s cubic-bezier(.16,.8,.24,1) both}
+.hero h1 .line:nth-child(2)>span{animation-delay:.09s}
+@keyframes rise{from{transform:translateY(105%)}to{transform:translateY(0)}}
+.lede{margin-top:1.1rem;max-width:46ch;color:var(--muted);font-size:1.03rem;animation:fade .9s ease .4s both}
+@keyframes fade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.cta{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.6rem;animation:fade .9s ease .55s both}
+.hero__strip{margin-top:2rem;display:flex;gap:1.9rem;flex-wrap:wrap;animation:fade .9s ease .68s both}
+.hero__strip div{border-left:2px solid var(--secondary);padding-left:.75rem}
+.hero__strip p{margin:.2rem 0 0;font-size:.9rem;color:var(--ink)}
 
-  /* Crack divider — signature element */
-  .crack {
-    height: 40px; width: 100%; margin: 8px 0 0;
-  }
-  .crack svg { width: 100%; height: 100%; display: block; }
+/* ---------- photo frame (reusable, drop an <img> in to replace) ---------- */
+.frame{position:relative;border:2px dashed var(--line);border-radius:10px;background:var(--card);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;color:var(--muted);
+  text-align:center;padding:1rem;overflow:hidden}
+.frame svg{width:24px;height:24px;opacity:.5}
+.frame span{font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase}
+.frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none}
+.frame.has-photo img{display:block}
+.frame.has-photo svg,.frame.has-photo span{display:none}
+.hero__photo{width:100%;max-width:300px;aspect-ratio:4/5;justify-self:center;animation:fade 1s ease .3s both}
+.card__photo{aspect-ratio:16/10;margin-bottom:.9rem;border-radius:6px}
+@media (max-width:820px){.hero__grid{grid-template-columns:1fr}.hero__photo{max-width:220px;order:-1}}
 
-  section { padding: 64px 0; border-bottom: 1px solid var(--border); }
-  section:last-of-type { border-bottom: none; }
+.btn{display:inline-flex;align-items:center;gap:.7rem;font-family:var(--mono);font-size:.7rem;letter-spacing:.15em;
+  text-transform:uppercase;padding:.9rem 1.3rem;border-radius:3px;text-decoration:none;cursor:pointer;border:1px solid transparent;
+  transition:background .2s,color .2s,border-color .2s,transform .2s,box-shadow .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn--solid{background:var(--primary);color:var(--bg)}.btn--solid:hover{background:var(--primary-hi);box-shadow:0 8px 18px rgba(19,41,75,.25)}
+.btn--line{border-color:var(--line);color:var(--ink);background:var(--card)}.btn--line:hover{border-color:var(--primary);color:var(--primary)}
+.btn i{width:15px;height:1px;background:currentColor;transition:width .2s}.btn:hover i{width:24px}
 
-  .section-label {
-    font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--maroon);
-    text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; display: block;
-  }
-  h2.section-title { font-size: 28px; margin-bottom: 32px; }
+/* ---------- section rhythm (tightened) ---------- */
+.band{padding-block:clamp(2.2rem,5vw,3.6rem)}
+.divider{display:flex;align-items:center;gap:.9rem;color:var(--muted);margin-bottom:1.4rem}
+.divider::after{content:"";flex:1;height:0;border-top:1px dashed var(--line)}
+.divider b{white-space:nowrap}
+.head{max-width:56ch;margin-bottom:clamp(1.3rem,2.5vw,1.8rem)}
+.head p{color:var(--muted);margin-top:.75rem;max-width:50ch}
 
-  p { color: var(--muted); max-width: 640px; }
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(.9rem,1.8vw,1.2rem)}
+.cards>article{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:clamp(1.2rem,2vw,1.6rem);
+  position:relative;transition:box-shadow .25s ease,transform .25s ease}
+.cards>article:hover{box-shadow:0 14px 30px rgba(19,41,75,.1);transform:translateY(-3px)}
+.cards .mono{color:var(--accent);display:block;margin-bottom:.6rem}
+.cards h3{color:var(--ink);margin-bottom:.45rem}
+.cards p{color:var(--muted);font-size:.92rem}
 
-  /* Research cards */
-  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
-  .card {
-    background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
-    padding: 24px;
-  }
-  .card h3 { font-size: 17px; margin-bottom: 10px; }
-  .card p { font-size: 14px; margin: 0; }
-  .card .tag {
-    display: inline-block; margin-top: 14px; font-size: 11px; font-family: 'JetBrains Mono', monospace;
-    color: var(--maroon); background: var(--maroon-tint); padding: 3px 10px; border-radius: 20px;
-  }
+.rows{border-top:1px solid var(--line)}
+.row{display:grid;grid-template-columns:88px 1fr auto;gap:1.2rem;padding:1.1rem 0;border-bottom:1px solid var(--line);
+  align-items:start;transition:padding-left .25s ease}
+.row:hover{padding-left:10px}
+.row__id{color:var(--accent)}
+.row h3{font-family:var(--body);font-weight:600;font-size:1rem;text-transform:none;line-height:1.45}
+.row__meta{color:var(--muted);font-size:.89rem;margin-top:.28rem}
+.row__side{color:var(--muted);text-align:right;white-space:nowrap}
 
-  /* Publications */
-  .pub-list { list-style: none; padding: 0; margin: 0; }
-  .pub-list li {
-    padding: 20px 0; border-top: 1px solid var(--border); display: flex; gap: 20px; align-items: baseline;
-  }
-  .pub-list li:first-child { border-top: none; }
-  .pub-year { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--orange); min-width: 44px; }
-  .pub-body h3 { font-size: 15px; font-weight: 500; font-family: 'Inter', sans-serif; margin-bottom: 4px; }
-  .pub-body p { font-size: 13px; margin: 0; }
-  .pub-body a { color: var(--maroon); text-decoration: none; font-size: 13px; }
-  .pub-body a:hover { text-decoration: underline; }
+.split{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(1.6rem,4vw,3rem);align-items:start}
+.tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.9rem}
+.tag{font-family:var(--mono);font-size:.63rem;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--line);
+  padding:.36rem .58rem;color:var(--muted);background:var(--card);border-radius:3px}
 
-  /* Experience timeline */
-  .timeline { border-left: 2px solid var(--border); padding-left: 28px; display: flex; flex-direction: column; gap: 32px; }
-  .timeline-item { position: relative; }
-  .timeline-item::before {
-    content: ''; position: absolute; left: -33px; top: 4px; width: 9px; height: 9px;
-    border-radius: 50%; background: var(--blue);
-  }
-  .timeline-item .when { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted); }
-  .timeline-item h3 { font-size: 16px; margin: 4px 0 6px; }
-  .timeline-item p { font-size: 14px; margin: 0; }
+.panel{background:var(--secondary);color:var(--bg);border-radius:8px;padding:clamp(1.6rem,3.5vw,2.3rem);position:relative;overflow:hidden}
+.panel h2{color:var(--bg)}
+.panel p{color:rgba(245,241,232,.8)}
+.panel__foot{display:flex;justify-content:space-between;align-items:center;gap:1.5rem;flex-wrap:wrap;margin-top:1.4rem}
 
-  /* Skills */
-  .skill-groups { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
-  .skill-group h3 {
-    font-size: 13px; font-family: 'JetBrains Mono', monospace; color: var(--muted);
-    text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 12px; font-weight: 400;
-  }
-  .skill-group ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
-  .skill-group li { font-size: 14px; color: var(--ink); }
+.phead{padding-top:calc(var(--nav-h) + clamp(1.9rem,4.2vw,3rem));padding-bottom:clamp(1.5rem,3vw,2.2rem)}
+.phead h1{color:var(--primary);font-size:clamp(1.8rem,4vw,2.7rem)}
+.phead p{margin-top:.8rem;max-width:50ch;color:var(--muted)}
 
-  /* Contact / footer */
-  footer.contact { padding: 64px 0 80px; }
-  .contact-links { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 24px; }
-  .btn {
-    display: inline-block; padding: 11px 22px; border-radius: 8px; font-size: 14px;
-    text-decoration: none; font-weight: 500;
-  }
-  .btn-primary { background: var(--maroon); color: #fff; }
-  .btn-primary:hover { background: var(--maroon-hover); }
-  .btn-secondary { border: 1px solid var(--border); color: var(--ink); }
-  .btn-secondary:hover { border-color: var(--maroon); color: var(--maroon); }
+/* contact: boarding-pass style cards, arranged as a grid */
+.ticket-list{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1rem}
+.ticket{display:flex;flex-direction:column;min-height:156px;background:var(--card);border:1px solid var(--line);border-radius:10px;
+  text-decoration:none;color:var(--ink);overflow:hidden;transition:box-shadow .25s ease,transform .25s ease}
+.ticket:hover{box-shadow:0 14px 30px rgba(19,41,75,.12);transform:translateY(-3px)}
+.ticket__stub{display:flex;align-items:center;gap:.7rem;padding:1.05rem 1.15rem;border-bottom:2px dashed var(--line)}
+.ticket__stub svg{width:23px;height:23px;flex:none}
+.ticket__stub span{font-family:var(--mono);font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.ticket__value{padding:1.1rem 1.15rem;font-weight:700;font-size:1.14rem;flex:1;display:flex;flex-direction:column;justify-content:center}
+.ticket__value small{display:block;font-weight:400;color:var(--muted);font-size:.68em;margin-top:.35rem}
+.ticket__code{padding:.6rem 1.15rem;border-top:1px solid var(--line);display:flex;justify-content:flex-end;color:var(--line)}
+.ticket__code svg{width:78px;height:22px}
+.ticket--primary .ticket__stub{background:rgba(19,41,75,.05)}.ticket--primary .ticket__stub svg{color:var(--primary)}
+.ticket--secondary .ticket__stub{background:rgba(80,0,0,.05)}.ticket--secondary .ticket__stub svg{color:var(--secondary)}
+.ticket--accent .ticket__stub{background:rgba(255,95,5,.06)}.ticket--accent .ticket__stub svg{color:var(--accent)}
+@media (max-width:860px){.ticket-list{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.ticket-list{grid-template-columns:1fr}}
 
-  @media (max-width: 640px) {
-    nav ul { display: none; }
-    h1.title { font-size: 32px; }
-    .grid, .skill-groups { grid-template-columns: 1fr; }
-    .pub-list li { flex-direction: column; gap: 6px; }
-  }
+.foot{background:var(--secondary-light);border-top:3px solid var(--accent);flex-shrink:0}
+@media (min-width:960px){
+  .foot{margin-left:calc(-1 * var(--left-w));margin-right:calc(-1 * var(--rail-w));
+    padding-left:var(--left-w);padding-right:var(--rail-w)}
+}
+.foot .wrap{padding-block:1.8rem;display:flex;flex-wrap:wrap;gap:1.2rem;justify-content:space-between;align-items:center;color:rgba(255,255,255,.85)}
+.foot .mono{color:#fff;font-weight:700;font-size:.78rem}
+.foot p:not(.mono){font-size:.95rem;font-weight:500}
+.foot .ph{color:rgba(255,255,255,.78);background:rgba(255,255,255,.12);box-shadow:inset 0 -1px 0 rgba(255,255,255,.4)}
+.foot a{color:rgba(255,255,255,.9);text-decoration:none}.foot a:hover{color:var(--accent)}
+.foot nav{display:flex;gap:1.2rem;flex-wrap:wrap}
+
+[data-reveal]{opacity:0;transform:translateY(16px);transition:opacity .6s cubic-bezier(.2,.8,.25,1),transform .6s cubic-bezier(.2,.8,.25,1)}
+[data-reveal].is-in{opacity:1;transform:none}
+.view{display:none}.view.is-current{display:block}
+main{position:relative;flex:1 0 auto}
+
+@media (max-width:900px){
+  .cards{grid-template-columns:1fr}
+  .split{grid-template-columns:1fr}
+  .row{grid-template-columns:56px 1fr;gap:.85rem}
+  .row__side{grid-column:2;text-align:left;margin-top:.35rem}
+}
+@media (max-width:720px){
+  .links{position:fixed;top:var(--nav-h);left:0;right:0;background:var(--bg);border-bottom:1px solid var(--line);
+    flex-direction:column;padding:.4rem;display:none;gap:.3rem}
+  .links.is-open{display:flex}.links a{padding:.8rem 1rem}
+  .burger{display:block}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important}
+  [data-reveal]{opacity:1;transform:none}
+}
 </style>
 </head>
 <body>
 
-<nav>
-  <div class="wrap">
-    <span class="name">[Your name]</span>
-    <ul>
-      <li><a href="#research">Research</a></li>
-      <li><a href="#publications">Publications</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </div>
-</nav>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="plane" viewBox="0 0 24 24">
+    <path d="M12 1 L13.4 9.2 L22 13 L22 14.6 L13.4 12.6 L13.4 18.4 L16.6 20.6 L16.6 22 L12 20.6
+             L7.4 22 L7.4 20.6 L10.6 18.4 L10.6 12.6 L2 14.6 L2 13 L10.6 9.2 Z"/>
+  </symbol>
+  <symbol id="camera" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 8h3l1.5-2h7L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1Z"/>
+    <circle cx="12" cy="13" r="3.4"/>
+  </symbol>
+  <symbol id="ic-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="3" y="5" width="18" height="14" rx="2"/>
+    <path d="M4 7l8 6 8-6"/>
+  </symbol>
+  <symbol id="ic-building" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="5" y="3" width="14" height="18" rx="1"/>
+    <path d="M9 8h1M14 8h1M9 12h1M14 12h1"/>
+    <path d="M10 21v-4h4v4"/>
+  </symbol>
+  <symbol id="ic-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 6c-1.5-1.2-4-1.6-6-1.2v13c2-.4 4.5 0 6 1.2 1.5-1.2 4-1.6 6-1.2V4.8c-2-.4-4.5 0-6 1.2Z"/>
+    <path d="M12 6v13"/>
+  </symbol>
+  <symbol id="ic-badge" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="9" r="5"/>
+    <path d="M8 13.5 6.5 21 12 18.5 17.5 21 16 13.5"/>
+  </symbol>
+  <symbol id="ic-network" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="6" cy="7" r="2.4"/>
+    <circle cx="18" cy="7" r="2.4"/>
+    <circle cx="12" cy="18" r="2.4"/>
+    <path d="M7.9 8.6 10.4 16M16.1 8.6 13.6 16M8.4 7h7.2"/>
+  </symbol>
+  <symbol id="ic-flask" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M9 3h6M10 3v6.5L4.8 18a2 2 0 0 0 1.7 3h11a2 2 0 0 0 1.7-3L14 9.5V3"/>
+    <path d="M7.5 14.5h9"/>
+  </symbol>
+  <symbol id="ic-barcode" viewBox="0 0 60 32" fill="currentColor">
+    <rect x="0" y="0" width="2" height="32"/><rect x="4" y="0" width="1" height="32"/>
+    <rect x="7" y="0" width="3" height="32"/><rect x="12" y="0" width="1" height="32"/>
+    <rect x="15" y="0" width="2" height="32"/><rect x="19" y="0" width="1" height="32"/>
+    <rect x="22" y="0" width="4" height="32"/><rect x="28" y="0" width="1" height="32"/>
+    <rect x="31" y="0" width="2" height="32"/><rect x="35" y="0" width="1" height="32"/>
+    <rect x="38" y="0" width="3" height="32"/><rect x="43" y="0" width="1" height="32"/>
+    <rect x="46" y="0" width="2" height="32"/><rect x="50" y="0" width="1" height="32"/>
+    <rect x="53" y="0" width="4" height="32"/><rect x="58" y="0" width="1" height="32"/>
+  </symbol>
+</svg>
 
-<header class="hero">
+<header class="nav" id="nav">
   <div class="wrap">
-    <span class="eyebrow">Pavement &amp; asphalt mechanics</span>
-    <h1 class="title">[Your name]</h1>
-    <p class="subtitle">Doctoral researcher studying fracture mechanics and durability of asphalt materials. Illinois Center for Transportation, University of Illinois Urbana-Champaign.</p>
-    <div class="hero-meta">
-      <span><strong>Advisor</strong> Prof. Imad L. Al-Qadi</span>
-      <span><strong>Focus</strong> fracture mechanics, fatigue, airfield pavements</span>
-      <span><strong>Based in</strong> Urbana-Champaign, IL</span>
-    </div>
-  </div>
-  <div class="crack">
-    <svg viewBox="0 0 880 40" preserveAspectRatio="none">
-      <polyline points="0,20 90,20 120,8 150,30 180,14 230,26 280,20 330,4 360,24 420,16 470,22 520,6 560,28 620,18 660,20 720,10 760,26 820,20 880,20"
-        fill="none" stroke="#FF5F05" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
+    <a class="mark" href="#/"><b>Akash <em>Bajaj</em></b></a>
+    <button class="burger" id="burger" aria-expanded="false" aria-controls="links">Menu</button>
+    <nav class="links" id="links" aria-label="Main">
+      <a href="#/academic" data-route="academic">Academic</a>
+      <a href="#/professional" data-route="professional">Professional</a>
+      <a href="#/contact" data-route="contact">Contact</a>
+    </nav>
   </div>
 </header>
 
-<section id="research">
-  <div class="wrap">
-    <span class="section-label">01</span>
-    <h2 class="section-title">Research focus</h2>
-    <div class="grid">
-      <div class="card">
-        <h3>Fracture mechanics of asphalt concrete</h3>
-        <p>Experimental characterization of crack propagation resistance using disc geometry fracture tests.</p>
-        <span class="tag">Lab testing</span>
-      </div>
-      <div class="card">
-        <h3>Fatigue characterization</h3>
-        <p>Dissipated energy and RDEC frameworks applied to uniaxial cyclic fatigue of airfield asphalt mixes.</p>
-        <span class="tag">AMPT</span>
-      </div>
-      <div class="card">
-        <h3>Binder degradation</h3>
-        <p>UV and oxidative aging effects on asphalt binder behavior and long-term durability.</p>
-        <span class="tag">Materials</span>
-      </div>
-      <div class="card">
-        <h3>Airfield pavement engineering</h3>
-        <p>FAA-funded work on cracking potential and performance evaluation within a balanced mix design framework.</p>
-        <span class="tag">FAA</span>
-      </div>
-    </div>
-  </div>
-</section>
+<div class="topbar" aria-hidden="true"><div class="topbar__fill" id="topbarFill"></div></div>
 
-<section id="publications">
-  <div class="wrap">
-    <span class="section-label">02</span>
-    <h2 class="section-title">Publications</h2>
-    <ul class="pub-list">
-      <li>
-        <span class="pub-year">2026</span>
-        <div class="pub-body">
-          <h3>[Paper title]</h3>
-          <p>[Authors] · [Journal or conference, TRB / TRR / etc.]</p>
-          <a href="#">View paper →</a>
+<aside class="rail" id="rail" aria-hidden="true">
+  <svg viewBox="0 0 96 800" preserveAspectRatio="none" id="railSvg">
+    <path id="routeBg" class="route-bg" d="M48 10 C 20 120, 76 220, 48 320 C 20 420, 76 540, 48 660 C 30 720, 60 760, 48 790"/>
+    <path id="routeFg" class="route-fg" d="M48 10 C 20 120, 76 220, 48 320 C 20 420, 76 540, 48 660 C 30 720, 60 760, 48 790"/>
+    <g id="nodesG"></g>
+  </svg>
+  <div class="rail__plane" id="railPlane"><svg viewBox="0 0 24 24"><use href="#plane"/></svg></div>
+</aside>
+
+<main>
+<aside class="leftbar" aria-hidden="true"></aside>
+<!-- =============== HOME =============== -->
+<section class="view is-current" id="view-home">
+  <div class="hero">
+    <div class="wrap hero__grid">
+      <div>
+        <p class="mono eyebrow">DEP Urbana, IL &nbsp;·&nbsp; Civil &amp; Environmental Engineering</p>
+        <h1>
+          <span class="line"><span>Akash</span></span>
+          <span class="line"><span><em>Bajaj</em></span></span>
+        </h1>
+        <p class="lede"><span class="ph">[One or two sentences. Who you are, what you study, what a visitor should take away in five seconds.]</span></p>
+        <div class="cta">
+          <a class="btn btn--solid" href="#/academic">See academic work <i></i></a>
+          <a class="btn btn--line" href="#/contact">Get in touch <i></i></a>
         </div>
-      </li>
-      <li>
-        <span class="pub-year">2025</span>
-        <div class="pub-body">
-          <h3>[Paper title]</h3>
-          <p>[Authors] · [Journal or conference]</p>
-          <a href="#">View paper →</a>
+        <div class="hero__strip">
+          <div><span class="mono">Field</span><p><span class="ph">[Discipline]</span></p></div>
+          <div><span class="mono">Institution</span><p><span class="ph">[University, department]</span></p></div>
+          <div><span class="mono">Status</span><p>PhD Candidate</p></div>
         </div>
-      </li>
-      <li>
-        <span class="pub-year">2024</span>
-        <div class="pub-body">
-          <h3>[Paper title]</h3>
-          <p>[Authors] · [Journal or conference]</p>
-          <a href="#">View paper →</a>
+      </div>
+
+      <!-- drop your headshot in: replace this div's contents with <img src="you.jpg" alt="Akash Bajaj"> -->
+      <div class="frame hero__photo">
+        <svg><use href="#camera"/></svg>
+        <span>Add photo</span>
+      </div>
+    </div>
+  </div>
+
+  <section class="band" style="padding-top:0">
+    <div class="wrap">
+      <div class="divider mono" data-reveal><b>Focus areas</b></div>
+      <div class="head" data-reveal>
+        <h2>What I work on</h2>
+        <p><span class="ph">[Two lines framing your research. Replace the three cards below with your actual areas.]</span></p>
+      </div>
+      <div class="cards" data-reveal>
+        <article>
+          <div class="frame card__photo"><svg><use href="#camera"/></svg><span>Add photo</span></div>
+          <span class="mono">01</span><h3><span class="ph">[Research area one]</span></h3><p><span class="ph">[Two sentences on the problem and your contribution.]</span></p>
+        </article>
+        <article>
+          <div class="frame card__photo"><svg><use href="#camera"/></svg><span>Add photo</span></div>
+          <span class="mono">02</span><h3><span class="ph">[Research area two]</span></h3><p><span class="ph">[Two sentences on methods, materials, or scale.]</span></p>
+        </article>
+        <article>
+          <div class="frame card__photo"><svg><use href="#camera"/></svg><span>Add photo</span></div>
+          <span class="mono">03</span><h3><span class="ph">[Research area three]</span></h3><p><span class="ph">[Two sentences on who the work serves.]</span></p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" style="padding-top:0">
+    <div class="wrap">
+      <div class="divider mono" data-reveal><b>Selected work</b></div>
+      <div class="head" data-reveal><h2>Recent output</h2>
+        <p><span class="ph">[Three to five items you want front and centre. The full list lives on the Academic page.]</span></p></div>
+      <div class="rows" data-reveal>
+        <article class="row"><span class="mono row__id">2026</span><div><h3><span class="ph">[Paper or project title]</span></h3><p class="row__meta"><span class="ph">[Journal, conference, or sponsor]</span></p></div><span class="mono row__side">Journal</span></article>
+        <article class="row"><span class="mono row__id">2025</span><div><h3><span class="ph">[Paper or project title]</span></h3><p class="row__meta"><span class="ph">[Journal, conference, or sponsor]</span></p></div><span class="mono row__side">Report</span></article>
+        <article class="row"><span class="mono row__id">2025</span><div><h3><span class="ph">[Paper or project title]</span></h3><p class="row__meta"><span class="ph">[Journal, conference, or sponsor]</span></p></div><span class="mono row__side">Talk</span></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" style="padding-top:0">
+    <div class="wrap">
+      <div class="panel" data-reveal>
+        <svg class="plane-svg" viewBox="0 0 24 24" width="24" height="24" style="fill:var(--accent);margin-bottom:.9rem"><use href="#plane"/></svg>
+        <h2>Open to collaboration<br>and questions</h2>
+        <p style="margin-top:.7rem;max-width:44ch"><span class="ph">[One line inviting a message. Collaboration, data requests, or student questions.]</span></p>
+        <div class="panel__foot">
+          <a class="btn btn--line" style="border-color:rgba(245,241,232,.4);color:var(--bg)" href="#/contact">Start a conversation <i></i></a>
+          <a class="btn btn--line" style="border-color:rgba(245,241,232,.4);color:var(--bg)" href="#/academic">All publications <i></i></a>
         </div>
-      </li>
-    </ul>
-  </div>
-</section>
-
-<section id="experience">
-  <div class="wrap">
-    <span class="section-label">03</span>
-    <h2 class="section-title">Experience</h2>
-    <div class="timeline">
-      <div class="timeline-item">
-        <span class="when">[Start] — present</span>
-        <h3>Research assistant, Illinois Center for Transportation</h3>
-        <p>[One or two lines on scope of work, projects, and role within the Al-Qadi research group.]</p>
-      </div>
-      <div class="timeline-item">
-        <span class="when">[Start] — [End]</span>
-        <h3>[Prior role or program]</h3>
-        <p>[Description of role, institution, and focus.]</p>
-      </div>
-      <div class="timeline-item">
-        <span class="when">[Year]</span>
-        <h3>B.S. / M.S., Texas A&amp;M University</h3>
-        <p>[Degree, department, and any honors worth noting.]</p>
       </div>
     </div>
-  </div>
+  </section>
 </section>
 
-<section id="skills">
-  <div class="wrap">
-    <span class="section-label">04</span>
-    <h2 class="section-title">Skills &amp; tools</h2>
-    <div class="skill-groups">
-      <div class="skill-group">
-        <h3>Lab &amp; testing</h3>
-        <ul>
-          <li>AMPT fatigue testing</li>
-          <li>Disc fracture testing</li>
-          <li>Micro-Deval / durability testing</li>
-        </ul>
-      </div>
-      <div class="skill-group">
-        <h3>Analysis</h3>
-        <ul>
-          <li>Fracture mechanics modeling</li>
-          <li>Dissipated energy / RDEC analysis</li>
-          <li>Statistical analysis</li>
-        </ul>
-      </div>
-      <div class="skill-group">
-        <h3>Software</h3>
-        <ul>
-          <li>[Software 1]</li>
-          <li>[Software 2]</li>
-          <li>[Software 3]</li>
-        </ul>
-      </div>
+<!-- =============== ACADEMIC =============== -->
+<section class="view" id="view-academic">
+  <header class="phead"><div class="wrap">
+    <h1>Academic</h1>
+    <p><span class="ph">[One sentence on your academic focus, degrees, and the through-line across your work.]</span></p>
+  </div></header>
+
+  <section class="band"><div class="wrap split">
+    <div><div class="divider mono" data-reveal><b>Education</b></div><h2 data-reveal>Education</h2></div>
+    <div class="rows" data-reveal>
+      <article class="row"><span class="mono row__id">[20XX]</span><div><h3><span class="ph">[Degree, field]</span></h3><p class="row__meta"><span class="ph">[Institution], advisor: [name]</span></p></div><span class="mono row__side">In progress</span></article>
+      <article class="row"><span class="mono row__id">[20XX]</span><div><h3><span class="ph">[Degree, field]</span></h3><p class="row__meta"><span class="ph">[Institution]</span></p></div><span class="mono row__side">Completed</span></article>
+      <article class="row"><span class="mono row__id">[20XX]</span><div><h3><span class="ph">[Degree, field]</span></h3><p class="row__meta"><span class="ph">[Institution]</span></p></div><span class="mono row__side">Completed</span></article>
     </div>
-  </div>
+  </div></section>
+
+  <section class="band" style="padding-top:0"><div class="wrap">
+    <div class="divider mono" data-reveal><b>Publications</b></div>
+    <div class="head" data-reveal><h2>Publications</h2><p><span class="ph">[Send me the list and I will format it with real DOI links.]</span></p></div>
+    <div class="rows" data-reveal>
+      <article class="row"><span class="mono row__id">P.01</span><div><h3><span class="ph">[Authors. (Year). Title.]</span></h3><p class="row__meta"><span class="ph">[Journal, volume, pages. DOI.]</span></p></div><span class="mono row__side">PDF</span></article>
+      <article class="row"><span class="mono row__id">P.02</span><div><h3><span class="ph">[Authors. (Year). Title.]</span></h3><p class="row__meta"><span class="ph">[Journal, volume, pages. DOI.]</span></p></div><span class="mono row__side">PDF</span></article>
+      <article class="row"><span class="mono row__id">P.03</span><div><h3><span class="ph">[Authors. (Year). Title.]</span></h3><p class="row__meta"><span class="ph">[Conference proceedings, location.]</span></p></div><span class="mono row__side">Link</span></article>
+      <article class="row"><span class="mono row__id">P.04</span><div><h3><span class="ph">[Authors. (Year). Title.]</span></h3><p class="row__meta"><span class="ph">[Sponsor, report number.]</span></p></div><span class="mono row__side">Report</span></article>
+    </div>
+  </div></section>
+
+  <section class="band" style="padding-top:0"><div class="wrap">
+    <div class="divider mono" data-reveal><b>Teaching and awards</b></div>
+    <div class="cards" data-reveal style="grid-template-columns:repeat(2,1fr)">
+      <article><span class="mono">Teaching</span><h3><span class="ph">[Course number and title]</span></h3><p><span class="ph">[Role, term, topics covered.]</span></p></article>
+      <article><span class="mono">Mentoring</span><h3><span class="ph">[Mentoring]</span></h3><p><span class="ph">[Students, topics, outcomes.]</span></p></article>
+      <article><span class="mono">Awards</span><h3><span class="ph">[Award or fellowship]</span></h3><p><span class="ph">[Awarding body and year.]</span></p></article>
+      <article><span class="mono">Service</span><h3><span class="ph">[Society role]</span></h3><p><span class="ph">[Organisation, years active.]</span></p></article>
+    </div>
+  </div></section>
 </section>
 
-<footer class="contact" id="contact">
-  <div class="wrap">
-    <span class="section-label">05</span>
-    <h2 class="section-title">Get in touch</h2>
-    <p>Open to discussing collaborations, research questions, or opportunities in pavement and asphalt materials engineering.</p>
-    <div class="contact-links">
-      <a class="btn btn-primary" href="mailto:you@illinois.edu">Email me</a>
-      <a class="btn btn-secondary" href="#">LinkedIn</a>
-      <a class="btn btn-secondary" href="#">Google Scholar</a>
-      <a class="btn btn-secondary" href="#">CV (PDF)</a>
-    </div>
-  </div>
-</footer>
+<!-- =============== PROFESSIONAL =============== -->
+<section class="view" id="view-professional">
+  <header class="phead"><div class="wrap">
+    <h1>Professional</h1>
+    <p><span class="ph">[One sentence on your practice side and what you bring to a team.]</span></p>
+  </div></header>
 
+  <section class="band"><div class="wrap">
+    <div class="divider mono" data-reveal><b>Experience</b></div>
+    <div class="head" data-reveal><h2>Experience</h2></div>
+    <div class="rows" data-reveal>
+      <article class="row"><span class="mono row__id">[20XX–]</span><div><h3><span class="ph">[Job title]</span></h3><p class="row__meta"><span class="ph">[Organisation, location. Scope and impact.]</span></p></div><span class="mono row__side">Current</span></article>
+      <article class="row"><span class="mono row__id">[20XX]</span><div><h3><span class="ph">[Job title]</span></h3><p class="row__meta"><span class="ph">[Organisation, location. Scope and impact.]</span></p></div><span class="mono row__side">Past</span></article>
+      <article class="row"><span class="mono row__id">[20XX]</span><div><h3><span class="ph">[Internship or placement]</span></h3><p class="row__meta"><span class="ph">[Organisation, location. What you delivered.]</span></p></div><span class="mono row__side">Past</span></article>
+    </div>
+  </div></section>
+
+  <section class="band" style="padding-top:0"><div class="wrap split">
+    <div><div class="divider mono" data-reveal><b>Capabilities</b></div><h2 data-reveal>Capabilities</h2>
+      <p data-reveal style="color:var(--muted);margin-top:.85rem"><span class="ph">[Short paragraph on the problems you can be handed.]</span></p></div>
+    <div data-reveal>
+      <p class="mono" style="color:var(--muted);margin-bottom:.5rem">Laboratory</p>
+      <div class="tags"><span class="tag ph">[Test 1]</span><span class="tag ph">[Test 2]</span><span class="tag ph">[Test 3]</span><span class="tag ph">[Test 4]</span><span class="tag ph">[Test 5]</span></div>
+      <p class="mono" style="color:var(--muted);margin:1.3rem 0 .5rem">Modelling and software</p>
+      <div class="tags"><span class="tag ph">[Tool 1]</span><span class="tag ph">[Tool 2]</span><span class="tag ph">[Tool 3]</span></div>
+      <p class="mono" style="color:var(--muted);margin:1.3rem 0 .5rem">Certifications</p>
+      <div class="tags"><span class="tag ph">[Certification]</span><span class="tag ph">[Licence]</span></div>
+    </div>
+  </div></section>
+
+  <section class="band" style="padding-top:0"><div class="wrap">
+    <div class="divider mono" data-reveal><b>Projects</b></div>
+    <div class="cards" data-reveal>
+      <article>
+        <div class="frame card__photo"><svg><use href="#camera"/></svg><span>Add photo</span></div>
+        <span class="mono">01</span><h3><span class="ph">[Project title]</span></h3><p><span class="ph">[Sponsor, role, outcome.]</span></p>
+      </article>
+      <article>
+        <div class="frame card__photo"><svg><use href="#camera"/></svg><span>Add photo</span></div>
+        <span class="mono">02</span><h3><span class="ph">[Project title]</span></h3><p><span class="ph">[Sponsor, role, outcome.]</span></p>
+      </article>
+      <article>
+        <div class="frame card__photo"><svg><use href="#camera"/></svg><span>Add photo</span></div>
+        <span class="mono">03</span><h3><span class="ph">[Project title]</span></h3><p><span class="ph">[Sponsor, role, outcome.]</span></p>
+      </article>
+    </div>
+  </div></section>
+</section>
+
+<!-- =============== CONTACT =============== -->
+<section class="view" id="view-contact">
+  <header class="phead" style="padding-bottom:.7rem"><div class="wrap">
+    <h1>Contact</h1>
+    <p style="max-width:none">Happy to connect, whether it's collaboration, a question, or just to say hello.</p>
+  </div></header>
+
+  <section class="band" style="padding-top:1rem"><div class="wrap">
+    <div class="ticket-list" data-reveal>
+      <a class="ticket ticket--primary" href="mailto:akash9@illinois.edu">
+        <span class="ticket__stub"><svg><use href="#ic-mail"/></svg><span>Email</span></span>
+        <span class="ticket__value">akash9@illinois.edu<small>100.akash@gmail.com</small></span>
+        <span class="ticket__code" aria-hidden="true"><svg><use href="#ic-barcode"/></svg></span>
+      </a>
+      <a class="ticket ticket--secondary" href="https://ict.illinois.edu/" target="_blank" rel="noopener">
+        <span class="ticket__stub"><svg><use href="#ic-building"/></svg><span>Office</span></span>
+        <span class="ticket__value">Illinois Center for Transportation</span>
+        <span class="ticket__code" aria-hidden="true"><svg><use href="#ic-barcode"/></svg></span>
+      </a>
+      <a class="ticket ticket--accent" href="https://orcid.org/0000-0002-0788-465X" target="_blank" rel="noopener">
+        <span class="ticket__stub"><svg><use href="#ic-badge"/></svg><span>ORCID</span></span>
+        <span class="ticket__value">0000-0002-0788-465X</span>
+        <span class="ticket__code" aria-hidden="true"><svg><use href="#ic-barcode"/></svg></span>
+      </a>
+      <a class="ticket ticket--primary" href="https://scholar.google.com/citations?user=AkapmuIAAAAJ&amp;hl=en" target="_blank" rel="noopener">
+        <span class="ticket__stub"><svg><use href="#ic-book"/></svg><span>Scholar</span></span>
+        <span class="ticket__value">View profile &rarr;</span>
+        <span class="ticket__code" aria-hidden="true"><svg><use href="#ic-barcode"/></svg></span>
+      </a>
+      <a class="ticket ticket--secondary" href="https://www.linkedin.com/in/a-bajaj/" target="_blank" rel="noopener">
+        <span class="ticket__stub"><svg><use href="#ic-network"/></svg><span>LinkedIn</span></span>
+        <span class="ticket__value">View profile &rarr;</span>
+        <span class="ticket__code" aria-hidden="true"><svg><use href="#ic-barcode"/></svg></span>
+      </a>
+      <a class="ticket ticket--accent" href="https://www.researchgate.net/profile/Akash-Bajaj" target="_blank" rel="noopener">
+        <span class="ticket__stub"><svg><use href="#ic-flask"/></svg><span>ResearchGate</span></span>
+        <span class="ticket__value">View profile &rarr;</span>
+        <span class="ticket__code" aria-hidden="true"><svg><use href="#ic-barcode"/></svg></span>
+      </a>
+    </div>
+    <p style="margin-top:1.6rem"><a class="btn btn--line" href="#" onclick="return false">Download CV (PDF) <i></i></a></p>
+  </div></section>
+</section>
+</main>
+
+<footer class="foot"><div class="wrap">
+  <div><p class="mono" style="margin-bottom:.4rem">Akash Bajaj</p>
+    <p style="font-size:.9rem;margin:0"><span class="ph">[Department, institution]</span></p></div>
+  <nav class="mono"><a href="#/">Home</a><a href="#/academic">Academic</a><a href="#/professional">Professional</a><a href="#/contact">Contact</a></nav>
+  <p class="mono" style="margin:0">akashto.com</p>
+</div></footer>
+
+<script>
+(function(){
+  "use strict";
+  var reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var nav=document.getElementById("nav");
+
+  var footEl=document.querySelector(".foot");
+  function syncFooterHeight(){
+    if(!footEl) return;
+    document.documentElement.style.setProperty("--footer-h", footEl.offsetHeight + "px");
+  }
+  syncFooterHeight();
+  addEventListener("resize", syncFooterHeight);
+  if("ResizeObserver"in window && footEl){ new ResizeObserver(syncFooterHeight).observe(footEl); }
+
+  var routeFg=document.getElementById("routeFg"), routeBg=document.getElementById("routeBg");
+  var nodesG=document.getElementById("nodesG"), railPlane=document.getElementById("railPlane"), topbarFill=document.getElementById("topbarFill");
+  var codes=["HOM","FOC","WRK","CTA"];
+  var fracs=[0,.32,.64,1];
+  var pathLen=routeBg.getTotalLength();
+  routeFg.style.strokeDasharray=pathLen;
+  routeFg.style.strokeDashoffset=pathLen;
+
+  var nodeEls=[];
+  codes.forEach(function(code,i){
+    var pt=routeBg.getPointAtLength(fracs[i]*pathLen);
+    var g=document.createElementNS("http://www.w3.org/2000/svg","g");
+    var side = pt.x<48 ? -1 : 1;
+    g.innerHTML=
+      '<circle class="node-dot" cx="'+pt.x+'" cy="'+pt.y+'" r="4"></circle>'+
+      '<text class="node-code" x="'+(pt.x + side*9)+'" y="'+(pt.y+3)+'" text-anchor="'+(side>0?"start":"end")+'">'+code+'</text>';
+    nodesG.appendChild(g);
+    nodeEls.push(g);
+  });
+
+  function onScroll(){
+    nav.classList.toggle("is-stuck",scrollY>16);
+    var max=document.documentElement.scrollHeight - window.innerHeight;
+    var frac= max>0 ? Math.min(1,Math.max(0,scrollY/max)) : 0;
+    topbarFill.style.width=(frac*100).toFixed(2)+"%";
+    routeFg.style.strokeDashoffset = pathLen - frac*pathLen;
+
+    var railEl=document.getElementById("rail");
+    if(railEl && getComputedStyle(railEl).display!=="none"){
+      var box=railEl.getBoundingClientRect();
+      var vb=routeBg.ownerSVGElement.viewBox.baseVal;
+      var sx=box.width/vb.width, sy=box.height/vb.height;
+
+      var d=frac*pathLen;
+      var eps=2;
+      var p1=routeBg.getPointAtLength(Math.max(0,d-eps));
+      var p2=routeBg.getPointAtLength(Math.min(pathLen,d+eps));
+      var pt=routeBg.getPointAtLength(d);
+
+      var angle=Math.atan2((p2.y-p1.y)*sy,(p2.x-p1.x)*sx)*180/Math.PI;
+
+      railPlane.style.left=(pt.x*sx)+"px";
+      railPlane.style.top=(pt.y*sy)+"px";
+      railPlane.style.transform="translate(-50%,-50%) rotate("+(angle+90)+"deg)";
+    }
+    nodeEls.forEach(function(g,i){
+      var past=frac>=fracs[i]-0.01;
+      g.querySelector(".node-dot").classList.toggle("is-past",past);
+      g.querySelector(".node-code").classList.toggle("is-past",past);
+    });
+  }
+  addEventListener("scroll",onScroll,{passive:true});
+  addEventListener("resize",onScroll);
+  onScroll();
+
+  var burger=document.getElementById("burger"),links=document.getElementById("links");
+  burger.addEventListener("click",function(){var o=links.classList.toggle("is-open");
+    burger.setAttribute("aria-expanded",String(o));burger.textContent=o?"Close":"Menu"});
+
+  var io=null;
+  if("IntersectionObserver"in window&&!reduce){
+    io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("is-in");io.unobserve(e.target)}})},{rootMargin:"0px 0px -10% 0px",threshold:.08});
+  }
+  function watch(s){[].forEach.call(s.querySelectorAll("[data-reveal]"),function(n,i){
+    n.style.transitionDelay=Math.min(i*55,220)+"ms"; io?io.observe(n):n.classList.add("is-in")})}
+
+  var routes=["home","academic","professional","contact"];
+  function route(){
+    var k=(location.hash.replace("#/","")||"home").split("?")[0];
+    if(routes.indexOf(k)<0)k="home";
+    routes.forEach(function(r){var v=document.getElementById("view-"+r);if(v)v.classList.toggle("is-current",r===k)});
+    [].forEach.call(document.querySelectorAll(".links a"),function(a){a.classList.toggle("is-active",a.dataset.route===k)});
+    links.classList.remove("is-open");burger.textContent="Menu";burger.setAttribute("aria-expanded","false");
+    scrollTo(0,0); onScroll();
+    var v=document.getElementById("view-"+k); if(v)watch(v);
+  }
+  addEventListener("hashchange",route);route();
+})();
+</script>
 </body>
 </html>
