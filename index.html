@@ -154,6 +154,15 @@ p{margin:0 0 1rem}p:last-child{margin-bottom:0}
 .cap-row dt{font-family:var(--mono);font-size:.68rem;font-weight:600;letter-spacing:.07em;
   text-transform:uppercase;color:var(--primary);padding-top:.15rem}
 .cap-row dd{margin:0;color:var(--muted);font-size:.93rem;line-height:1.75}
+
+.proj-meta{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.7rem}
+.proj-meta span{font-family:var(--mono);font-size:.6rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;
+  padding:.3rem .55rem;border-radius:3px}
+.proj-meta .proj-sponsor{background:rgba(19,41,75,.07);color:var(--primary)}
+.proj-meta .proj-amt{background:rgba(255,95,5,.08);color:var(--accent)}
+.proj-goal{margin:.7rem 0;padding-left:.7rem;border-left:2px solid var(--accent);color:var(--ink);font-size:.9rem;line-height:1.55}
+.proj-goal b{font-family:var(--mono);font-size:.63rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:.15rem}
+.proj-role{color:var(--muted);font-size:.88rem;line-height:1.6}
 @media (max-width:680px){.cap-row{grid-template-columns:1fr;gap:.45rem}}
 .box-list{list-style:none;margin:0;padding:0}
 .box-list li{padding-bottom:.85rem;margin-bottom:.85rem;border-bottom:1px dashed var(--line)}
@@ -292,7 +301,7 @@ p{margin:0 0 1rem}p:last-child{margin-bottom:0}
 
 /* home: focus-area cards, same boarding-pass language as the contact tickets, with a
    circular icon badge overlapping the top edge (flat, no gradients/shadows) */
-.focus-card{position:relative}
+.focus-card{position:relative;height:100%;display:flex;flex-direction:column}
 .cards>article.focus-card{background:transparent;border:none;border-radius:0;padding:0}
 .focus-card--secondary .focus-card__panel{background:rgba(80,0,0,.035)}
 .focus-card--primary .focus-card__panel{background:rgba(19,41,75,.035)}
@@ -302,7 +311,7 @@ p{margin:0 0 1rem}p:last-child{margin-bottom:0}
   box-shadow:0 0 0 2px var(--line),0 0 0 5px var(--card),0 0 0 7px var(--line)}
 .focus-card:hover .focus-card__badge{transform:translateX(-50%) scale(1.07)}
 .focus-card__badge svg{width:100%;height:100%;display:block}
-.focus-card__panel{margin-top:46px;background:transparent;border:1px solid var(--line);border-radius:10px;overflow:hidden;
+.focus-card__panel{margin-top:46px;flex:1;background:transparent;border:1px solid var(--line);border-radius:10px;overflow:hidden;
   display:flex;flex-direction:column;transition:box-shadow .25s ease,transform .25s ease}
 .focus-card:hover .focus-card__panel{box-shadow:0 14px 30px rgba(19,41,75,.12);transform:translateY(-3px)}
 .focus-card__stub{display:flex;align-items:center;justify-content:center;padding:56px 1.15rem .9rem;border-bottom:2px dashed var(--line)}
@@ -853,33 +862,28 @@ main{position:relative;flex:1 0 auto}
   </div></section>
 
   <section class="band" style="padding-top:0"><div class="wrap">
-    <div class="divider mono" data-reveal><b>Capabilities</b></div>
-    <p data-reveal style="color:var(--muted);margin-top:.85rem;max-width:64ch">Comfortable moving between fundamental research and applied practice &mdash; developing new laboratory test methods for pavement fracture and fatigue characterization, and running the engineering and analysis work behind FAA- and state DOT-funded projects.</p>
-    <dl class="cap-list" data-reveal>
-      <div class="cap-row"><dt>Mechanical &amp; performance</dt><dd>Servohydraulic testing machines &middot; Asphalt Mixture Performance Tester &middot; Loaded wheel-tracking testing &middot; Abrasion testing</dd></div>
-      <div class="cap-row"><dt>Rheological</dt><dd>Dynamic Shear Rheometer &middot; Bending Beam Rheometer</dd></div>
-      <div class="cap-row"><dt>Aging &amp; conditioning</dt><dd>Pressure Aging Vessel &middot; Rolling Thin-Film Oven &middot; UV weathering chamber</dd></div>
-      <div class="cap-row"><dt>Chemical &amp; thermal</dt><dd>Fourier-Transform Infrared Spectroscopy &middot; Differential Scanning Calorimetry &middot; Thermogravimetric Analysis</dd></div>
-      <div class="cap-row"><dt>Imaging</dt><dd>Digital Image Correlation</dd></div>
-      <div class="cap-row"><dt>Modelling &amp; software</dt><dd>AutoCAD Civil 3D &middot; MicroStation &middot; MATLAB &middot; ArcGIS &middot; JMP &middot; SQL &middot; RoadCare &middot; PAVER &middot; MEPDG &middot; AASHTO &rsquo;93 &middot; Pavement ME &middot; PCA</dd></div>
-      <div class="cap-row"><dt>Certifications</dt><dd>Engineer in Training (E.I.T.)</dd></div>
-    </dl>
-  </div></section>
-
-  <section class="band" style="padding-top:0"><div class="wrap">
     <div class="divider mono" data-reveal><b>Projects</b></div>
     <div class="cards" data-reveal>
       <article>
-        <div class="frame card__photo"><svg><use href="#camera"/></svg><span>Add photo</span></div>
-        <span class="mono">01</span><h3>FAA Stone-Matrix Asphalt Implementation Study</h3><p>Federal Aviation Administration, $500K. Graduate student coordinator, directing proposal development and ongoing execution with academic and industry partners to guide SMA adoption across U.S. airports.</p>
+        <div class="frame card__photo has-photo"><img src="images/sma.jpg" alt="Nighttime airfield paving work at an airport apron"></div>
+        <span class="mono">01</span><h3>FAA Stone-Matrix Asphalt Implementation Study</h3>
+        <div class="proj-meta"><span class="proj-sponsor">Federal Aviation Administration</span><span class="proj-amt">$500K</span></div>
+        <p class="proj-goal"><b>Goal</b>Establish implementation guidance for Stone-Matrix Asphalt across U.S. airports.</p>
+        <p class="proj-role">Graduate student coordinator, directing proposal development and ongoing execution with academic and industry partners.</p>
       </article>
       <article>
-        <div class="frame card__photo"><svg><use href="#camera"/></svg><span>Add photo</span></div>
-        <span class="mono">02</span><h3>FAA Airfield Cracking Mechanisms Study</h3><p>Federal Aviation Administration, $1M, 3-year study. Led the project; findings informed revised FAA specifications and produced two test methods now in ASTM balloting, the SLT-SCB and DONUT tests.</p>
+        <div class="frame card__photo has-photo"><img src="images/cracking.jpg" alt="Close-up of a cracked runway threshold marking"></div>
+        <span class="mono">02</span><h3>FAA Airfield Cracking Mechanisms Study</h3>
+        <div class="proj-meta"><span class="proj-sponsor">Federal Aviation Administration</span><span class="proj-amt">$1M &middot; 3 years</span></div>
+        <p class="proj-goal"><b>Goal</b>Characterize cracking mechanisms in airfield asphalt pavements to inform FAA specifications.</p>
+        <p class="proj-role">Led the project; findings produced two test methods now in ASTM balloting, the SLT-SCB and DONUT tests.</p>
       </article>
       <article>
-        <div class="frame card__photo"><svg><use href="#camera"/></svg><span>Add photo</span></div>
-        <span class="mono">03</span><h3>NCHRP 9-58: Recycling Agents for High RAS/RAP Asphalt Mixtures</h3><p>National Cooperative Highway Research Program, $1.5M, Texas A&amp;M Transportation Institute. Led lab testing of high-RAP blends; findings published as NCHRP Research Report 927.</p>
+        <div class="frame card__photo has-photo"><img src="images/recycled.jpg" alt="Milling machine loading reclaimed asphalt into a truck"></div>
+        <span class="mono">03</span><h3>NCHRP 9-58: Recycling Agents for High RAS/RAP Asphalt Mixtures</h3>
+        <div class="proj-meta"><span class="proj-sponsor">National Cooperative Highway Research Program</span><span class="proj-amt">$1.5M</span></div>
+        <p class="proj-goal"><b>Goal</b>Evaluate recycling agents for asphalt mixtures with high recycled-material content.</p>
+        <p class="proj-role">Led lab testing of high-RAP blends at Texas A&amp;M Transportation Institute; findings published as NCHRP Research Report 927.</p>
       </article>
     </div>
   </div></section>
@@ -895,6 +899,20 @@ main{position:relative;flex:1 0 auto}
       <article class="row"><span class="row__id"><span class="mono yr">2022</span></span><div><h3><a href="https://ict.illinois.edu/news/ict-grad-students-mentor-future-researchers" target="_blank" rel="noopener">ICT Grad Students Mentor Future Researchers</a></h3><p class="row__meta">Illinois Center for Transportation News</p></div><span class="row__side"><svg><use href="#ic-news"/></svg><span class="mono">Feature</span></span></article>
       <article class="row"><span class="row__id"><span class="mono yr">2022</span></span><div><h3><a href="https://cee.illinois.edu/academics/awardlists/illinois-asphalt-pavement-association-scholarship" target="_blank" rel="noopener">Illinois Asphalt Pavement Association Scholarship</a></h3><p class="row__meta">Civil &amp; Environmental Engineering, UIUC</p></div><span class="row__side"><svg><use href="#ic-news"/></svg><span class="mono">Listing</span></span></article>
     </div>
+  </div></section>
+
+  <section class="band" style="padding-top:0"><div class="wrap">
+    <div class="divider mono" data-reveal><b>Capabilities</b></div>
+    <p data-reveal style="color:var(--muted);margin-top:.85rem;max-width:64ch">Comfortable moving between fundamental research and applied practice &mdash; developing new laboratory test methods for pavement fracture and fatigue characterization, and running the engineering and analysis work behind FAA- and state DOT-funded projects.</p>
+    <dl class="cap-list" data-reveal>
+      <div class="cap-row"><dt>Mechanical &amp; performance</dt><dd>Servohydraulic testing machines &middot; Asphalt Mixture Performance Tester &middot; Loaded wheel-tracking testing &middot; Abrasion testing</dd></div>
+      <div class="cap-row"><dt>Rheological</dt><dd>Dynamic Shear Rheometer &middot; Bending Beam Rheometer</dd></div>
+      <div class="cap-row"><dt>Aging &amp; conditioning</dt><dd>Pressure Aging Vessel &middot; Rolling Thin-Film Oven &middot; UV weathering chamber</dd></div>
+      <div class="cap-row"><dt>Chemical &amp; thermal</dt><dd>Fourier-Transform Infrared Spectroscopy &middot; Differential Scanning Calorimetry &middot; Thermogravimetric Analysis</dd></div>
+      <div class="cap-row"><dt>Imaging</dt><dd>Digital Image Correlation</dd></div>
+      <div class="cap-row"><dt>Modelling &amp; software</dt><dd>AutoCAD Civil 3D &middot; MicroStation &middot; MATLAB &middot; ArcGIS &middot; JMP &middot; SQL &middot; RoadCare &middot; PAVER &middot; MEPDG &middot; AASHTO &rsquo;93 &middot; Pavement ME &middot; PCA</dd></div>
+      <div class="cap-row"><dt>Certifications</dt><dd>Engineer in Training (E.I.T.)</dd></div>
+    </dl>
   </div></section>
 </section>
 
