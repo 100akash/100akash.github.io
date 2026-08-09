@@ -57,8 +57,10 @@ p{margin:0 0 1rem}p:last-child{margin-bottom:0}
 @media (max-width:959px){.nav{left:0;right:0}}
 .nav.is-stuck{border-bottom-color:var(--line)}
 .nav .wrap{display:flex;align-items:center;justify-content:space-between;width:100%}
-.mark{text-decoration:none;color:var(--primary)}
-.mark b{font-family:var(--display);font-weight:900;font-size:.9rem;letter-spacing:.02em;text-transform:uppercase}
+.mark{text-decoration:none;color:var(--primary);display:inline-flex;flex-direction:column;gap:.28rem}
+.mark b{font-family:var(--display);font-weight:900;font-size:1.24rem;letter-spacing:.005em;text-transform:uppercase;line-height:1}
+.mark::after{content:"";height:2px;width:26px;background:var(--accent);border-radius:2px;transition:width .25s ease}
+.mark:hover::after{width:100%}
 .mark b em{font-style:normal;font-weight:600;color:var(--muted)}
 
 /* subpages: bolder, boxed, orange — the one place site sections are navigated from */
@@ -92,6 +94,9 @@ p{margin:0 0 1rem}p:last-child{margin-bottom:0}
 .node-dot.is-past{fill:var(--primary);stroke:var(--primary)}
 .node-code{font-family:var(--mono);font-size:9px;letter-spacing:.06em;fill:var(--muted);transition:fill .25s ease}
 .node-code.is-past{fill:var(--primary);font-weight:600}
+.node-hit{cursor:pointer}
+.node-hit:hover .node-dot{stroke:var(--accent);r:5.5}
+.node-hit:hover .node-code{fill:var(--accent)}
 .rail__plane{position:absolute;left:0;top:0;width:22px;height:22px;
   transition:left .08s linear, top .08s linear, transform .12s linear;
   filter:drop-shadow(0 2px 4px rgba(0,0,0,.16))}
@@ -215,25 +220,39 @@ p{margin:0 0 1rem}p:last-child{margin-bottom:0}
 .row__side{display:flex;align-items:center;gap:.4rem;color:var(--muted);white-space:nowrap}
 .row__side svg{width:14px;height:14px;flex:none;opacity:.65}
 
-.timeline{position:relative;padding-left:2.4rem}
-.timeline::before{content:"";position:absolute;left:.42rem;top:.5rem;bottom:.5rem;width:2px;background:var(--line)}
-.tl-item{position:relative;padding-bottom:2.1rem}
-.tl-item:last-child{padding-bottom:0}
-.tl-item::before{content:"";position:absolute;left:-2.4rem;top:.32rem;width:13px;height:13px;border-radius:50%;
-  background:var(--primary);border:3px solid var(--bg);box-shadow:0 0 0 1px var(--line)}
-.tl-item:nth-child(4n+2)::before{background:var(--secondary)}
-.tl-item:nth-child(4n+3)::before{background:var(--accent)}
-.tl-item:nth-child(4n+4)::before{background:var(--secondary-light)}
-.tl-head{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:.3rem 1rem;margin-bottom:.3rem}
-.tl-head h3{font-family:var(--body);font-weight:600;font-size:1.05rem;color:var(--ink);text-transform:none}
-.tl-meta{font-family:var(--mono);font-size:.68rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
-.tl-org{color:var(--muted);font-size:.86rem;margin-bottom:.6rem}
-.tl-pill{display:inline-block;margin-left:.55rem;padding:.16rem .55rem;border-radius:999px;background:var(--accent);
-  color:#fff;font-family:var(--mono);font-size:.58rem;letter-spacing:.06em;text-transform:uppercase;vertical-align:middle}
-.tl-item ul{margin:0;padding-left:1.15rem}
-.tl-item li{color:var(--muted);font-size:.9rem;line-height:1.6;margin-bottom:.45rem}
-.tl-item li:last-child{margin-bottom:0}
-.tl-item li::marker{color:var(--accent)}
+.timeline{position:relative;border-top:1px solid var(--line)}
+.pro-banner{margin:1.6rem 0 0;border-radius:10px;overflow:hidden;border:1px solid var(--line)}
+.pro-banner img{display:block;width:100%;height:clamp(200px,26vw,340px);object-fit:cover;object-position:center 38%}
+.pro-banner figcaption{padding:.7rem 1rem;background:var(--card);border-top:1px solid var(--line);
+  font-family:var(--mono);font-size:.66rem;letter-spacing:.04em;color:var(--muted);line-height:1.6}
+.tl-item{position:relative;display:grid;grid-template-columns:1fr;gap:.55rem;
+  padding:1.5rem 0;border-bottom:1px solid var(--line)}
+.tl-aside{display:flex;flex-wrap:wrap;align-items:baseline;gap:.35rem .7rem}
+.tl-meta{font-family:var(--mono);font-size:.7rem;font-weight:600;letter-spacing:.05em;
+  text-transform:uppercase;color:var(--accent);white-space:nowrap}
+.tl-org{display:block;color:var(--ink);font-size:.92rem;font-weight:600}
+.tl-loc{display:block;color:var(--muted);font-size:.8rem}
+.tl-pill{display:inline-block;padding:.14rem .5rem;border-radius:999px;background:var(--accent);
+  color:#fff;font-family:var(--mono);font-size:.56rem;letter-spacing:.06em;text-transform:uppercase}
+.tl-main h3{font-family:var(--body);font-weight:600;font-size:1.08rem;color:var(--primary);
+  text-transform:none;margin-bottom:.5rem}
+.tl-main ul{margin:0;padding-left:1.15rem}
+.tl-main li{color:var(--muted);font-size:.9rem;line-height:1.65;margin-bottom:.45rem}
+.tl-main li:last-child{margin-bottom:0}
+.tl-main li::marker{color:var(--accent)}
+
+@media (min-width:860px){
+  .tl-item{grid-template-columns:236px 1fr;gap:0 2.4rem;padding:1.7rem 0}
+  .tl-aside{display:block;position:relative;padding-right:1.6rem;text-align:right}
+  .tl-aside::after{content:"";position:absolute;right:0;top:.34rem;width:11px;height:11px;
+    border-radius:50%;background:var(--primary);box-shadow:0 0 0 3px var(--bg),0 0 0 4px var(--line)}
+  .tl-item:nth-child(4n+2) .tl-aside::after{background:var(--secondary)}
+  .tl-item:nth-child(4n+3) .tl-aside::after{background:var(--accent)}
+  .tl-item:nth-child(4n+4) .tl-aside::after{background:var(--secondary-light)}
+  .tl-meta{display:block;margin-bottom:.4rem}
+  .tl-org{margin-bottom:.15rem}
+  .tl-pill{margin-top:.5rem}
+}
 
 .degree-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1.2rem}
 .degree-card{background:var(--card);border:1px solid var(--line);border-top:3px solid var(--primary);border-radius:8px;
@@ -301,6 +320,14 @@ p{margin:0 0 1rem}p:last-child{margin-bottom:0}
 .ticket__stub span{font-family:var(--mono);font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .ticket__value{padding:1.1rem 1.15rem;font-weight:700;font-size:1.14rem;flex:1;display:flex;flex-direction:column;justify-content:center}
 .ticket__value small{display:block;font-weight:400;color:var(--muted);font-size:.68em;margin-top:.35rem}
+.mail{text-decoration:none;color:inherit;transition:color .2s ease}
+.mail--main{font-weight:700;font-size:1em}
+.mail--main:hover{color:var(--accent)}
+.mail--alt{display:flex;align-items:baseline;gap:.45rem;margin-top:.55rem;font-weight:400;
+  font-size:.72em;color:var(--muted)}
+.mail--alt span{font-family:var(--mono);font-size:.72em;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--muted);opacity:.7;flex:none}
+.mail--alt:hover{color:var(--accent)}
 .ticket__code{padding:.6rem 1.15rem;border-top:1px solid var(--line);display:flex;justify-content:flex-end;color:var(--line)}
 .ticket__code svg{width:78px;height:22px}
 .ticket--primary .ticket__stub{background:rgba(19,41,75,.05)}.ticket--primary .ticket__stub svg{color:var(--primary)}
@@ -819,58 +846,99 @@ main{position:relative;flex:1 0 auto}
 <section class="view" id="view-professional">
   <header class="phead"><div class="wrap">
     <h1>Professional</h1>
-    <p>Six years of applied pavement engineering across consulting and research, spanning roadway design, pavement management for state and county agencies, and federally funded materials research.</p>
+    <p style="max-width:none">Six years of applied pavement engineering across consulting and research, spanning roadway design, pavement management for state and county agencies, and federally funded materials research.</p>
+    <figure class="pro-banner" data-reveal>
+      <img src="images/lab-banner.jpg" alt="Akash Bajaj explaining asphalt pavement specimens to visitors at the Illinois Center for Transportation" loading="lazy">
+      <figcaption>Walking through asphalt mixture design and specimen preparation at the Illinois Center for Transportation.</figcaption>
+    </figure>
   </div></header>
 
   <section class="band"><div class="wrap">
     <div class="divider mono" data-reveal><b>Experience</b></div>
     <div class="timeline" data-reveal>
       <article class="tl-item">
-        <div class="tl-head"><h3>Graduate Research Assistant</h3><span class="tl-meta">Jan 2022&ndash;Present</span></div>
-        <p class="tl-org">University of Illinois Urbana-Champaign &middot; Urbana-Champaign, IL<span class="tl-pill">Current</span></p>
-        <ul>
-          <li>Coordinates a competitively awarded $500K FAA project on Stone-Matrix Asphalt implementation across U.S. airports, directing both proposal development and ongoing execution with academic and industry partners.</li>
-          <li>Led a 3-year, $1M FAA-sponsored study of cracking mechanisms in airfield asphalt pavements. Findings informed revised FAA specifications and produced two test methods now in ASTM balloting: the Simplified Low-Temperature SCB test (SLT-SCB) and the DONUT disc fracture test.</li>
-        </ul>
+        <div class="tl-aside">
+          <span class="tl-meta">Jan 2022&ndash;Present</span>
+          <span class="tl-org">University of Illinois Urbana-Champaign</span>
+          <span class="tl-loc">Urbana-Champaign, IL</span>
+          <span class="tl-pill">Current</span>
+        </div>
+        <div class="tl-main">
+          <h3>Graduate Research Assistant</h3>
+          <ul>
+            <li>Coordinates a competitively awarded $500K FAA project on Stone-Matrix Asphalt implementation across U.S. airports, directing both proposal development and ongoing execution with academic and industry partners.</li>
+            <li>Led a 3-year, $1M FAA-sponsored study of cracking mechanisms in airfield asphalt pavements. Findings informed revised FAA specifications and produced two test methods now in ASTM balloting: the Simplified Low-Temperature SCB test (SLT-SCB) and the DONUT disc fracture test.</li>
+          </ul>
+        </div>
       </article>
       <article class="tl-item">
-        <div class="tl-head"><h3>Graduate Teaching Assistant</h3><span class="tl-meta">Jan 2024&ndash;Dec 2025</span></div>
-        <p class="tl-org">University of Illinois Urbana-Champaign &middot; Urbana-Champaign, IL</p>
-        <ul>
-          <li>Supported CEE 407 (Airport Design) across two semesters for 50+ students per term, managing grading, leading discussions, and advising course projects.</li>
-        </ul>
+        <div class="tl-aside">
+          <span class="tl-meta">Jan 2024&ndash;Dec 2025</span>
+          <span class="tl-org">University of Illinois Urbana-Champaign</span>
+          <span class="tl-loc">Urbana-Champaign, IL</span>
+        </div>
+        <div class="tl-main">
+          <h3>Graduate Teaching Assistant</h3>
+          <ul>
+            <li>Supported CEE 407 (Airport Design) across two semesters for 50+ students per term, managing grading, leading discussions, and advising course projects.</li>
+          </ul>
+        </div>
       </article>
       <article class="tl-item">
-        <div class="tl-head"><h3>Graduate Engineer</h3><span class="tl-meta">Mar 2021&ndash;Dec 2021</span></div>
-        <p class="tl-org">Fisher Arnold &middot; Jonesboro, AR</p>
-        <ul>
-          <li>Delivered site and subdivision designs up to 30 acres across Arkansas, Tennessee, and Missouri, taking each from conditions assessment through grading, drainage, and utilities within local specifications and budget.</li>
-          <li>Produced 30%, 60%, and 90% roadway design sets for municipal and state projects in Arkansas, spanning typical sections, plan-and-profile sheets, pavement markings, maintenance of traffic, and erosion control.</li>
-        </ul>
+        <div class="tl-aside">
+          <span class="tl-meta">Mar 2021&ndash;Dec 2021</span>
+          <span class="tl-org">Fisher Arnold</span>
+          <span class="tl-loc">Jonesboro, AR</span>
+        </div>
+        <div class="tl-main">
+          <h3>Graduate Engineer</h3>
+          <ul>
+            <li>Delivered site and subdivision designs up to 30 acres across Arkansas, Tennessee, and Missouri, taking each from conditions assessment through grading, drainage, and utilities within local specifications and budget.</li>
+            <li>Produced 30%, 60%, and 90% roadway design sets for municipal and state projects in Arkansas, spanning typical sections, plan-and-profile sheets, pavement markings, maintenance of traffic, and erosion control.</li>
+          </ul>
+        </div>
       </article>
       <article class="tl-item">
-        <div class="tl-head"><h3>Civil Engineer</h3><span class="tl-meta">Mar 2019&ndash;Mar 2021</span></div>
-        <p class="tl-org">Applied Research Associates, Inc. &middot; Harrisburg, PA</p>
-        <ul>
-          <li>Led a joint ARA/KCI program cataloguing roughly 87,000 traffic signs across 2,500 miles for Nashville Metro Public Works, delivering a GIS database with location and condition data for every asset.</li>
-          <li>Built and maintained pavement management systems covering 123,000 miles of roadway for PennDOT, the North Texas Tollway Authority, and Anne Arundel County, MD. Work spanned distress-data QC, database development, 10-year condition forecasting, and benefit-cost treatment programming.</li>
-          <li>Assessed runway, taxiway, and terminal pavements at Cape May and Millville airports for the Delaware River and Bay Authority, updating records dormant since 2014 and conducting field surveys to establish Pavement Condition Index ratings.</li>
-          <li>Supported PennDOT's annual Highway Performance Monitoring System report to the federal government, plus pilot studies on Full-Depth Reclamation performance and the department's contractor incentive methodology.</li>
-        </ul>
+        <div class="tl-aside">
+          <span class="tl-meta">Mar 2019&ndash;Mar 2021</span>
+          <span class="tl-org">Applied Research Associates, Inc.</span>
+          <span class="tl-loc">Harrisburg, PA</span>
+        </div>
+        <div class="tl-main">
+          <h3>Civil Engineer</h3>
+          <ul>
+            <li>Led a joint ARA/KCI program cataloguing roughly 87,000 traffic signs across 2,500 miles for Nashville Metro Public Works, delivering a GIS database with location and condition data for every asset.</li>
+            <li>Built and maintained pavement management systems covering 123,000 miles of roadway for PennDOT, the North Texas Tollway Authority, and Anne Arundel County, MD. Work spanned distress-data QC, database development, 10-year condition forecasting, and benefit-cost treatment programming.</li>
+            <li>Assessed runway, taxiway, and terminal pavements at Cape May and Millville airports for the Delaware River and Bay Authority, updating records dormant since 2014 and conducting field surveys to establish Pavement Condition Index ratings.</li>
+            <li>Supported PennDOT's annual Highway Performance Monitoring System report to the federal government, plus pilot studies on Full-Depth Reclamation performance and the department's contractor incentive methodology.</li>
+          </ul>
+        </div>
       </article>
       <article class="tl-item">
-        <div class="tl-head"><h3>Graduate Assistant &ndash; Teaching</h3><span class="tl-meta">Sep 2018&ndash;Dec 2018</span></div>
-        <p class="tl-org">Texas A&amp;M University &middot; College Station, TX</p>
-        <ul>
-          <li>Led laboratory sections for CVEN 342 (Materials of Construction, 91 undergraduates) and CVEN 653 (Bituminous Materials, 14 graduate students), supervising experiments, grading, proctoring, and coordinating field visits.</li>
-        </ul>
+        <div class="tl-aside">
+          <span class="tl-meta">Sep 2018&ndash;Dec 2018</span>
+          <span class="tl-org">Texas A&amp;M University</span>
+          <span class="tl-loc">College Station, TX</span>
+        </div>
+        <div class="tl-main">
+          <h3>Graduate Assistant &ndash; Teaching</h3>
+          <ul>
+            <li>Led laboratory sections for CVEN 342 (Materials of Construction, 91 undergraduates) and CVEN 653 (Bituminous Materials, 14 graduate students), supervising experiments, grading, proctoring, and coordinating field visits.</li>
+          </ul>
+        </div>
       </article>
       <article class="tl-item">
-        <div class="tl-head"><h3>Graduate Assistant &ndash; Research</h3><span class="tl-meta">Jan 2017&ndash;Aug 2018</span></div>
-        <p class="tl-org">Texas A&amp;M Transportation Institute &middot; College Station, TX</p>
-        <ul>
-          <li>Led laboratory testing for a federally funded, five-year, $1.5M multi-university study of recycling agents in high-RAP asphalt mixtures, benchmarking blends with up to 50% RAP against virgin controls. Results shaped final guidelines for expanding recycled-material use in new construction.</li>
-        </ul>
+        <div class="tl-aside">
+          <span class="tl-meta">Jan 2017&ndash;Aug 2018</span>
+          <span class="tl-org">Texas A&amp;M Transportation Institute</span>
+          <span class="tl-loc">College Station, TX</span>
+        </div>
+        <div class="tl-main">
+          <h3>Graduate Assistant &ndash; Research</h3>
+          <ul>
+            <li>Led laboratory testing for a federally funded, five-year, $1.5M multi-university study of recycling agents in high-RAP asphalt mixtures, benchmarking blends with up to 50% RAP against virgin controls. Results shaped final guidelines for expanding recycled-material use in new construction.</li>
+          </ul>
+        </div>
       </article>
     </div>
   </div></section>
@@ -926,11 +994,14 @@ main{position:relative;flex:1 0 auto}
 
   <section class="band" style="padding-top:1rem"><div class="wrap">
     <div class="ticket-list" data-reveal>
-      <a class="ticket ticket--primary" href="mailto:akash9@illinois.edu">
+      <div class="ticket ticket--primary">
         <span class="ticket__stub"><svg><use href="#ic-mail"/></svg><span>Email</span></span>
-        <span class="ticket__value">akash9@illinois.edu<small>100.akash@gmail.com</small></span>
+        <span class="ticket__value">
+          <a class="mail mail--main" href="mailto:akash9@illinois.edu">akash9@illinois.edu</a>
+          <a class="mail mail--alt" href="mailto:100.akash@gmail.com"><span>Personal</span>100.akash@gmail.com</a>
+        </span>
         <span class="ticket__code" aria-hidden="true"><svg><use href="#ic-barcode"/></svg></span>
-      </a>
+      </div>
       <a class="ticket ticket--secondary" href="https://ict.illinois.edu/" target="_blank" rel="noopener">
         <span class="ticket__stub"><svg><use href="#ic-building"/></svg><span>Office</span></span>
         <span class="ticket__value">Illinois Center for Transportation</span>
@@ -997,23 +1068,46 @@ main{position:relative;flex:1 0 auto}
 
   var routeFg=document.getElementById("routeFg"), routeBg=document.getElementById("routeBg");
   var nodesG=document.getElementById("nodesG"), railPlane=document.getElementById("railPlane"), topbarFill=document.getElementById("topbarFill");
-  var codes=["HOM","FOC","WRK","CTA"];
-  var fracs=[0,.32,.64,1];
   var pathLen=routeBg.getTotalLength();
   routeFg.style.strokeDasharray=pathLen;
   routeFg.style.strokeDashoffset=pathLen;
 
-  var nodeEls=[];
-  codes.forEach(function(code,i){
-    var pt=routeBg.getPointAtLength(fracs[i]*pathLen);
-    var g=document.createElementNS("http://www.w3.org/2000/svg","g");
-    var side = pt.x<48 ? -1 : 1;
-    g.innerHTML=
-      '<circle class="node-dot" cx="'+pt.x+'" cy="'+pt.y+'" r="4"></circle>'+
-      '<text class="node-code" x="'+(pt.x + side*9)+'" y="'+(pt.y+3)+'" text-anchor="'+(side>0?"start":"end")+'">'+code+'</text>';
-    nodesG.appendChild(g);
-    nodeEls.push(g);
-  });
+  var RAIL_CODES={"Focus areas":"FOC","Selected work":"WRK","Education":"EDU","Publications":"PUB",
+    "Presentations":"TLK","Beyond the lab":"LAB","Experience":"EXP","Projects":"PRJ","In the media":"MED"};
+  function codeFor(t){
+    t=(t||"").trim();
+    return RAIL_CODES[t] || t.replace(/[^A-Za-z]/g,"").slice(0,3).toUpperCase() || "SEC";
+  }
+
+  var nodeEls=[], fracs=[], nodeTops=[];
+
+  function buildRail(){
+    nodesG.innerHTML=""; nodeEls=[]; fracs=[]; nodeTops=[];
+    var view=document.querySelector(".view.is-current");
+    if(!view) return;
+    var max=document.documentElement.scrollHeight-window.innerHeight;
+    var items=[{code:"TOP",top:0}];
+    [].forEach.call(view.querySelectorAll(".divider.mono"),function(d){
+      var b=d.querySelector("b"); if(!b) return;
+      var top=d.getBoundingClientRect().top+window.scrollY-96;
+      items.push({code:codeFor(b.textContent),top:Math.max(0,top)});
+    });
+    items.forEach(function(it,i){
+      var frac = max>0 ? Math.min(1,Math.max(0,it.top/max)) : (i===0?0:1);
+      // spread evenly if sections bunch up at the very top
+      fracs.push(frac); nodeTops.push(it.top);
+      var pt=routeBg.getPointAtLength(frac*pathLen);
+      var side = pt.x<48 ? -1 : 1;
+      var g=document.createElementNS("http://www.w3.org/2000/svg","g");
+      g.setAttribute("class","node-hit");
+      g.innerHTML=
+        '<circle class="node-dot" cx="'+pt.x+'" cy="'+pt.y+'" r="4"></circle>'+
+        '<text class="node-code" x="'+(pt.x + side*9)+'" y="'+(pt.y+3)+'" text-anchor="'+(side>0?"start":"end")+'">'+it.code+'</text>';
+      g.addEventListener("click",function(){ window.scrollTo({top:it.top,behavior:"smooth"}) });
+      nodesG.appendChild(g);
+      nodeEls.push(g);
+    });
+  }
 
   function onScroll(){
     nav.classList.toggle("is-stuck",scrollY>16);
@@ -1047,7 +1141,8 @@ main{position:relative;flex:1 0 auto}
     });
   }
   addEventListener("scroll",onScroll,{passive:true});
-  addEventListener("resize",onScroll);
+  addEventListener("resize",function(){ buildRail(); onScroll() });
+  buildRail();
   onScroll();
 
   var burger=document.getElementById("burger"),links=document.getElementById("links");
@@ -1162,8 +1257,10 @@ main{position:relative;flex:1 0 auto}
     routes.forEach(function(r){var v=document.getElementById("view-"+r);if(v)v.classList.toggle("is-current",r===k)});
     [].forEach.call(document.querySelectorAll(".links a"),function(a){a.classList.toggle("is-active",a.dataset.route===k)});
     links.classList.remove("is-open");burger.textContent="Menu";burger.setAttribute("aria-expanded","false");
-    scrollTo(0,0); onScroll();
+    scrollTo(0,0);
     var v=document.getElementById("view-"+k); if(v)watch(v);
+    buildRail(); onScroll();
+    setTimeout(function(){ buildRail(); onScroll() },600);
   }
   addEventListener("hashchange",route);route();
 })();
