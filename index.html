@@ -221,10 +221,13 @@ p{margin:0 0 1rem}p:last-child{margin-bottom:0}
 .row__side svg{width:14px;height:14px;flex:none;opacity:.65}
 
 .timeline{position:relative;border-top:1px solid var(--line)}
-.pro-banner{margin:1.6rem 0 0;border-radius:10px;overflow:hidden;border:1px solid var(--line)}
-.pro-banner img{display:block;width:100%;height:clamp(200px,26vw,340px);object-fit:cover;object-position:center 38%}
-.pro-banner figcaption{padding:.7rem 1rem;background:var(--card);border-top:1px solid var(--line);
-  font-family:var(--mono);font-size:.66rem;letter-spacing:.04em;color:var(--muted);line-height:1.6}
+.pro-head{display:grid;grid-template-columns:1fr;gap:1.6rem;align-items:end}
+.pro-portrait{width:100%;max-width:260px;aspect-ratio:4/5;object-fit:cover;border-radius:12px;
+  box-shadow:0 18px 40px rgba(19,41,75,.2);justify-self:start}
+@media (min-width:820px){
+  .pro-head{grid-template-columns:1fr 260px;gap:2.6rem}
+  .pro-portrait{justify-self:end}
+}
 .tl-item{position:relative;display:grid;grid-template-columns:1fr;gap:.55rem;
   padding:1.5rem 0;border-bottom:1px solid var(--line)}
 .tl-aside{display:flex;flex-wrap:wrap;align-items:baseline;gap:.35rem .7rem}
@@ -845,12 +848,13 @@ main{position:relative;flex:1 0 auto}
 <!-- =============== PROFESSIONAL =============== -->
 <section class="view" id="view-professional">
   <header class="phead"><div class="wrap">
-    <h1>Professional</h1>
-    <p style="max-width:none">Six years of applied pavement engineering across consulting and research, spanning roadway design, pavement management for state and county agencies, and federally funded materials research.</p>
-    <figure class="pro-banner" data-reveal>
-      <img src="images/lab-banner.jpg" alt="Akash Bajaj explaining asphalt pavement specimens to visitors at the Illinois Center for Transportation" loading="lazy">
-      <figcaption>Walking through asphalt mixture design and specimen preparation at the Illinois Center for Transportation.</figcaption>
-    </figure>
+    <div class="pro-head">
+      <div>
+        <h1>Professional</h1>
+        <p style="max-width:none">Six years of applied pavement engineering across consulting and research, spanning roadway design, pavement management for state and county agencies, and federally funded materials research.</p>
+      </div>
+      <img class="pro-portrait" src="images/akash-lab.jpg" alt="Akash Bajaj presenting asphalt pavement specimens at the Illinois Center for Transportation" loading="lazy">
+    </div>
   </div></header>
 
   <section class="band"><div class="wrap">
