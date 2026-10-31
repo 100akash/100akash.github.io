@@ -177,6 +177,11 @@ p{margin:0 0 1rem}p:last-child{margin-bottom:0}
 .proj-meta .proj-sponsor{background:rgba(19,41,75,.07);color:var(--primary)}
 .proj-meta .proj-amt{background:rgba(255,95,5,.08);color:var(--accent)}
 .proj-goal{margin:.7rem 0;padding-left:.7rem;border-left:2px solid var(--accent);color:var(--ink);font-size:.9rem;line-height:1.55}
+.tools>article{display:flex;flex-direction:column}
+.tool-links{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem 1.1rem;margin-top:auto;padding-top:1rem}
+.tool-open{font-family:var(--mono);font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;color:#fff;background:var(--primary);padding:.7rem 1.1rem;border-radius:6px;transition:background .2s ease,transform .2s ease}
+.tool-open:hover{background:var(--accent);transform:translateY(-2px)}
+.tool-src{font-size:.88rem;color:var(--primary)}
 .proj-goal b{font-family:var(--mono);font-size:.63rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:.15rem}
 .proj-role{color:var(--muted);font-size:.88rem;line-height:1.6}
 .box-list{list-style:none;margin:0;padding:0}
@@ -563,6 +568,7 @@ main{position:relative;flex:1 0 auto}
     <nav class="links" id="links" aria-label="Main">
       <a href="#/academic" data-route="academic">Academic</a>
       <a href="#/professional" data-route="professional">Professional</a>
+      <a href="#/tools" data-route="tools">Helpful Tools</a>
       <a href="#/contact" data-route="contact">Contact</a>
     </nav>
   </div>
@@ -1003,6 +1009,30 @@ main{position:relative;flex:1 0 auto}
 
 </section>
 
+<!-- =============== TOOLS =============== -->
+<section class="view" id="view-tools">
+  <header class="phead"><div class="wrap">
+    <h1>Helpful Tools</h1>
+    <p>Free tools from my research that I use in my own work. They run in your browser, and nothing you enter is uploaded.</p>
+  </div></header>
+
+  <section class="band" style="padding-top:0"><div class="wrap">
+    <div class="divider mono" data-reveal><b>Tools</b></div>
+    <div class="cards cards--flair tools" data-reveal>
+      <article>
+        <span class="mono">01</span><h3>Bailey Design Trials</h3>
+        <div class="proj-meta"><span class="proj-sponsor">Asphalt mix design</span><span class="proj-amt">SMA and dense-graded</span></div>
+        <p class="proj-goal"><b>What it does</b>Plans asphalt mix design trials with the Bailey Method from the stockpiles you have, then predicts VMA and the binder content for your air-void target.</p>
+        <p class="proj-role">Generates a first blend from Bailey inputs, tracks each lab trial, and suggests the next blend. You can change any stockpile or the binder and see the result update live.</p>
+        <div class="tool-links">
+          <a class="tool-open" href="bailey-design-trials/" target="_blank" rel="noopener">Open the tool &rarr;</a>
+          <a class="tool-src" href="https://github.com/100akash/bailey-design-trials" target="_blank" rel="noopener">Source code</a>
+        </div>
+      </article>
+    </div>
+  </div></section>
+</section>
+
 <!-- =============== CONTACT =============== -->
 <section class="view" id="view-contact">
   <header class="phead" style="padding-bottom:.7rem"><div class="wrap">
@@ -1064,7 +1094,7 @@ main{position:relative;flex:1 0 auto}
 <footer class="foot"><div class="wrap">
   <div><p class="mono" style="margin-bottom:.4rem">Akash Bajaj</p>
     <p style="font-size:.9rem;margin:0">Civil &amp; Environmental Engineering, University of Illinois Urbana-Champaign</p></div>
-  <nav class="mono"><a href="#/">Home</a><a href="#/academic">Academic</a><a href="#/professional">Professional</a><a href="#/contact">Contact</a></nav>
+  <nav class="mono"><a href="#/">Home</a><a href="#/academic">Academic</a><a href="#/professional">Professional</a><a href="#/tools">Tools</a><a href="#/contact">Contact</a></nav>
   <p class="mono" style="margin:0">akashto.com</p>
 </div></footer>
 
@@ -1091,7 +1121,7 @@ main{position:relative;flex:1 0 auto}
   routeFg.style.strokeDashoffset=pathLen;
 
   var RAIL_CODES={"Focus areas":"FOC","Selected work":"WRK","Education":"EDU","Publications":"PUB",
-    "Presentations":"TLK","Beyond the lab":"LAB","Experience":"EXP","Projects":"PRJ","In the media":"MED"};
+    "Presentations":"TLK","Beyond the lab":"LAB","Experience":"EXP","Projects":"PRJ","In the media":"MED","Tools":"TLS"};
   function codeFor(t){
     t=(t||"").trim();
     return RAIL_CODES[t] || t.replace(/[^A-Za-z]/g,"").slice(0,3).toUpperCase() || "SEC";
@@ -1268,7 +1298,7 @@ main{position:relative;flex:1 0 auto}
     n.style.transitionDelay=Math.min(i*55,220)+"ms"; io?io.observe(n):n.classList.add("is-in")});
     setTimeout(function(){[].forEach.call(s.querySelectorAll("[data-reveal]:not(.is-in)"),function(n){n.classList.add("is-in")})},500)}
 
-  var routes=["home","academic","professional","contact"];
+  var routes=["home","academic","professional","tools","contact"];
   function route(){
     var k=(location.hash.replace("#/","")||"home").split("?")[0];
     if(routes.indexOf(k)<0)k="home";
