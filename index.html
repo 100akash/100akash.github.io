@@ -177,8 +177,20 @@ p{margin:0 0 1rem}p:last-child{margin-bottom:0}
 .proj-meta .proj-sponsor{background:rgba(19,41,75,.07);color:var(--primary)}
 .proj-meta .proj-amt{background:rgba(255,95,5,.08);color:var(--accent)}
 .proj-goal{margin:.7rem 0;padding-left:.7rem;border-left:2px solid var(--accent);color:var(--ink);font-size:.9rem;line-height:1.55}
-.tools>article{display:flex;flex-direction:column}
-.tool-links{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem 1.1rem;margin-top:auto;padding-top:1rem}
+.tools-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,30rem),1fr));gap:clamp(.9rem,1.8vw,1.2rem)}
+.tool{display:flex;gap:1.2rem;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-top:3px solid var(--primary);border-radius:6px;padding:clamp(1.2rem,2vw,1.6rem);transition:box-shadow .25s ease,transform .25s ease}
+article.tool:hover{box-shadow:0 16px 34px rgba(19,41,75,.12);transform:translateY(-3px)}
+.tool-ic{flex:none;width:64px;height:64px;border-radius:12px;background:var(--primary);color:#fff;display:grid;place-items:center}
+.tool-ic svg{width:44px;height:44px}
+.tool-body{flex:1;min-width:0;display:flex;flex-direction:column}
+.tool h3{color:var(--ink);margin:0 0 .4rem}
+.tool p{color:var(--muted);font-size:.92rem;line-height:1.6;margin:0 0 .8rem}
+.tool--soon{background:transparent;border:1px dashed var(--line);border-top:1px dashed var(--line)}
+.tool--soon .tool-ic{background:rgba(19,41,75,.06);color:var(--muted)}
+.tool--soon .tool-ic svg{width:28px;height:28px}
+.tool--soon h3{color:var(--muted)}
+@media (max-width:520px){.tool{flex-direction:column}}
+.tool-links{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem 1.1rem;margin-top:auto;padding-top:.2rem}
 .tool-open{font-family:var(--mono);font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;color:#fff;background:var(--primary);padding:.7rem 1.1rem;border-radius:6px;transition:background .2s ease,transform .2s ease}
 .tool-open:hover{background:var(--accent);transform:translateY(-2px)}
 .tool-src{font-size:.88rem;color:var(--primary)}
@@ -435,6 +447,12 @@ main{position:relative;flex:1 0 auto}
   <symbol id="camera" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4 8h3l1.5-2h7L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1Z"/>
     <circle cx="12" cy="13" r="3.4"/>
+  </symbol>
+  <symbol id="ic-gradation" viewBox="0 0 48 48" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M8 6v34h34" stroke="currentColor" stroke-width="2.4"/>
+    <path d="M17 8v31M26 8v31M33 8v31" stroke="currentColor" stroke-width="1.2" stroke-dasharray="2 3" opacity=".45"/>
+    <path d="M10 37c6-1 10-2 14-6s5-14 9-20 5-3 7-3" stroke="#FF5F05" stroke-width="3"/>
+    <circle cx="10" cy="37" r="2" fill="#FF5F05"/><circle cx="24" cy="31" r="2" fill="#FF5F05"/><circle cx="33" cy="11" r="2" fill="#FF5F05"/><circle cx="40" cy="8" r="2" fill="#FF5F05"/>
   </symbol>
   <symbol id="ic-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
     <rect x="3" y="5" width="18" height="14" rx="2"/>
@@ -1013,22 +1031,27 @@ main{position:relative;flex:1 0 auto}
 <section class="view" id="view-tools">
   <header class="phead"><div class="wrap">
     <h1>Helpful Tools</h1>
-    <p>Free tools from my research that I use in my own work. They run in your browser, and nothing you enter is uploaded.</p>
+    <p>Small tools from my research. They run in your browser, and nothing you enter is uploaded.</p>
   </div></header>
 
   <section class="band" style="padding-top:0"><div class="wrap">
-    <div class="divider mono" data-reveal><b>Tools</b></div>
-    <div class="cards cards--flair tools" data-reveal>
-      <article>
-        <span class="mono">01</span><h3>Bailey Design Trials</h3>
-        <div class="proj-meta"><span class="proj-sponsor">Asphalt mix design</span><span class="proj-amt">SMA and dense-graded</span></div>
-        <p class="proj-goal"><b>What it does</b>Plans asphalt mix design trials with the Bailey Method from the stockpiles you have, then predicts VMA and the binder content for your air-void target.</p>
-        <p class="proj-role">Generates a first blend from Bailey inputs, tracks each lab trial, and suggests the next blend. You can change any stockpile or the binder and see the result update live.</p>
-        <div class="tool-links">
-          <a class="tool-open" href="bailey-design-trials/" target="_blank" rel="noopener">Open the tool &rarr;</a>
-          <a class="tool-src" href="https://github.com/100akash/bailey-design-trials" target="_blank" rel="noopener">Source code</a>
+    <div class="tools-grid" data-reveal>
+      <article class="tool">
+        <div class="tool-ic" aria-hidden="true"><svg><use href="#ic-gradation"/></svg></div>
+        <div class="tool-body">
+          <h3>Bailey Design Trials</h3>
+          <p>Plan asphalt mix trials from the stockpiles you have. Predicts VMA and binder content, then suggests the next blend as you test.</p>
+          <div class="proj-meta"><span class="proj-sponsor">Mix design</span><span class="proj-sponsor">Bailey Method</span><span class="proj-amt">SMA and dense-graded</span></div>
+          <div class="tool-links">
+            <a class="tool-open" href="bailey-design-trials/" target="_blank" rel="noopener">Open the tool &rarr;</a>
+            <a class="tool-src" href="https://github.com/100akash/bailey-design-trials" target="_blank" rel="noopener">Source code</a>
+          </div>
         </div>
       </article>
+      <div class="tool tool--soon" aria-hidden="true">
+        <div class="tool-ic"><svg><use href="#ic-flask"/></svg></div>
+        <div class="tool-body"><h3>More on the way</h3><p>New tools will be added here.</p></div>
+      </div>
     </div>
   </div></section>
 </section>
