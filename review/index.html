@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Review copy | Akash Bajaj</title>
+<style>
+  body{margin:0;min-height:100vh;display:grid;place-items:center;background:#F5F1E8;color:#13294B;
+    font:15px/1.6 "IBM Plex Sans",system-ui,sans-serif}
+  .load{text-align:center;padding:2rem}
+  .load b{display:block;font:600 .72rem/1 ui-monospace,monospace;letter-spacing:.16em;text-transform:uppercase;color:#FF5F05;margin-bottom:.6rem}
+</style>
+</head>
+<body>
+<div class="load" id="load"><b>Review copy</b>Loading the site&hellip;</div>
+<script>
+/* The review copy loads the live page, so reviewers always see the current text.
+   Relative links are pointed one folder up, and the review layer is added on top. */
+(function () {
+  var BUST = "?v=" + Date.now();
+  fetch("../index.html", { cache: "no-cache" })
+    .then(function (r) { if (!r.ok) throw new Error(r.status); return r.text(); })
+    .then(function (html) {
+      var rel = /(\s(?:src|href))="(?!(?:[a-z][a-z0-9+.-]*:|#|\/|\.\.\/))/gi;
+      var css = /url\((['"]?)(?!(?:[a-z][a-z0-9+.-]*:|#|\/|\.\.\/))/gi;
+      html = html
+        .replace(rel, '$1="../')
+        .replace(css, "url($1../")
+        .replace(/<title>[\s\S]*?<\/title>/i, "<title>Review copy | Akash Bajaj</title>")
+        .replace(/<head>/i, '<head>\n<meta name="robots" content="noindex, nofollow">')
+        .replace(/<\/head>/i, '<link rel="stylesheet" href="review.css' + BUST + '">\n</head>')
+        .replace(/<\/body>/i,
+          '<script src="config.js' + BUST + '"><\/script>\n' +
+          '<script src="diff.js' + BUST + '"><\/script>\n' +
+          '<script src="review.js' + BUST + '"><\/script>\n</body>');
+      document.open();
+      document.write(html);
+      document.close();
+    })
+    .catch(function () {
+      document.getElementById("load").innerHTML = "<b>Review copy</b>The site could not be loaded. Please refresh the page.";
+    });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Review dashboard | Akash Bajaj</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&family=Overpass:wght@800;900&display=swap" rel="stylesheet">
+<style>
+:root{--primary:#13294B;--primary-hi:#0C1B33;--accent:#FF5F05;--ink:#1C1C1A;--muted:#55554F;--line:#DCD9D0;--bg:#F5F1E8;--card:#fff;
+  --ok:#0E6B3B;--no:#B42318;--rv-del:#B42318;--rv-ins:#0E6B3B;--rv-ins-bg:rgba(14,107,59,.09);
+  --display:"Overpass",system-ui,sans-serif;--body:"IBM Plex Sans",system-ui,sans-serif;--mono:"IBM Plex Mono",ui-monospace,monospace}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 var(--body);-webkit-font-smoothing:antialiased}
+.wrap{max-width:1020px;margin:0 auto;padding:0 clamp(1rem,4vw,2.4rem)}
+header{background:var(--primary);color:#F5F1E8;border-bottom:3px solid var(--accent)}
+header .wrap{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;padding-top:1.6rem;padding-bottom:1.2rem;flex-wrap:wrap}
+h1{font:900 clamp(1.6rem,3.4vw,2.2rem)/1 var(--display);text-transform:uppercase;letter-spacing:-.02em;margin:.3rem 0 0}
+.kick{font:600 .64rem/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+header a{color:#F5F1E8;font-size:.86rem}
+h2{font:800 .95rem/1.2 var(--display);text-transform:uppercase;color:var(--primary);margin:2rem 0 .8rem;letter-spacing:.01em}
+.mono{font:600 .62rem/1.3 var(--mono);letter-spacing:.13em;text-transform:uppercase;color:var(--muted)}
+.box{background:var(--card);border:1px solid var(--line);border-radius:8px}
+table{width:100%;border-collapse:collapse;font-size:.88rem}
+th{text-align:left;font:600 .6rem/1.2 var(--mono);letter-spacing:.13em;text-transform:uppercase;color:var(--muted);padding:.7rem .9rem;border-bottom:1px solid var(--line)}
+td{padding:.6rem .9rem;border-bottom:1px solid var(--line);vertical-align:middle}
+tr:last-child td{border-bottom:0}
+.pill{display:inline-block;font:600 .58rem/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;padding:.3rem .45rem;border-radius:3px}
+.pill--done{background:#E7F4EC;color:var(--ok)}.pill--off{background:#F4E7E7;color:var(--no)}.pill--wait{background:#EEF0F4;color:var(--muted)}
+.copy{font:inherit;font-size:.78rem;border:1px solid var(--line);background:#fff;border-radius:5px;padding:.3rem .6rem;cursor:pointer}
+.copy:hover{border-color:var(--primary)}
+.tools{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem;margin:1.4rem 0 .4rem}
+.tools label{display:flex;flex-direction:column;gap:.25rem}
+select{font:inherit;font-size:.86rem;padding:.4rem .6rem;border:1px solid var(--line);border-radius:6px;background:#fff;min-width:9rem}
+.spacer{flex:1}
+.btn{font:inherit;font-size:.86rem;font-weight:600;padding:.55rem 1rem;border-radius:6px;border:1.5px solid var(--primary);background:var(--primary);color:#fff;cursor:pointer}
+.btn:hover{background:var(--primary-hi)}
+.btn--line{background:#fff;color:var(--primary)}
+.btn--line:hover{background:var(--bg)}
+.summary{font-size:.86rem;color:var(--muted);margin:.2rem 0 0}
+.page{margin-top:1.6rem}
+.page>h3{font:800 1.15rem/1 var(--display);text-transform:uppercase;color:var(--primary);margin:0 0 .7rem;padding-bottom:.5rem;border-bottom:2px solid var(--primary)}
+.block{padding:1rem 1.1rem;margin-bottom:.8rem}
+.block .orig{font-size:.9rem;color:var(--muted);background:var(--bg);border-radius:6px;padding:.55rem .75rem;margin:.45rem 0 .2rem}
+.sugg{border-top:1px dashed var(--line);padding-top:.75rem;margin-top:.75rem}
+.block>.sugg:first-child{border-top:0;padding-top:0;margin-top:0}
+.sugg__head{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}
+.who{font-weight:600;font-size:.9rem;color:var(--primary)}
+.when{font-size:.76rem;color:#8A8A85}
+.st{margin-left:auto;display:flex;gap:.35rem}
+.st button{font:inherit;font-size:.78rem;font-weight:600;padding:.32rem .7rem;border-radius:5px;border:1.5px solid var(--line);background:#fff;cursor:pointer;color:var(--ink)}
+.st button:hover{border-color:var(--primary)}
+.st button.on-accepted{background:var(--ok);border-color:var(--ok);color:#fff}
+.st button.on-rejected{background:var(--no);border-color:var(--no);color:#fff}
+.diff{font-size:.95rem;line-height:1.6;margin:.45rem 0 0}
+.note{font-size:.88rem;line-height:1.5;color:var(--primary);margin:.45rem 0 0;padding-left:.65rem;border-left:3px solid var(--accent)}
+.note b{font:600 .58rem/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:.2rem}
+.warn{font-size:.8rem;color:#93370D;background:#FEF0E6;border-radius:5px;padding:.35rem .6rem;margin:.45rem 0 0}
+.rv-del{color:var(--rv-del);text-decoration:line-through;text-decoration-thickness:1.5px}
+.rv-ins{color:var(--rv-ins);text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:2px;background:var(--rv-ins-bg)}
+.is-accepted{border-left:4px solid var(--ok)}.is-rejected{opacity:.6}
+.empty{padding:2rem;text-align:center;color:var(--muted)}
+.keyform{max-width:460px;margin:3rem auto;padding:1.6rem}
+.keyform input{width:100%;font:13px var(--mono);padding:.6rem;border:1px solid var(--line);border-radius:6px;margin:.6rem 0 1rem}
+.demo{background:#FFF4EC;border:1px solid #FFD3B5;color:#7A2E0E;border-radius:8px;padding:.7rem 1rem;margin-top:1.4rem;font-size:.88rem}
+textarea.out{width:100%;min-height:12rem;font:12px/1.5 var(--mono);padding:.8rem;border:1px solid var(--line);border-radius:6px;margin-top:.6rem}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:.6rem 1rem;border-radius:6px;font-size:.84rem;opacity:0;transition:opacity .2s;pointer-events:none}
+.toast.on{opacity:1}
+@media (max-width:640px){.st{margin-left:0;width:100%}.hide-sm{display:none}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <div><span class="kick">akashto.com</span><h1>Review dashboard</h1></div>
+  <a href="./" target="_blank" rel="noopener">Open the review copy &rarr;</a>
+</div></header>
+<main class="wrap" id="app"><p class="empty">Loading&hellip;</p></main>
+<div class="toast" id="toast"></div>
+
+<script src="config.js"></script>
+<script src="diff.js"></script>
+<script>
+(function () {
+  "use strict";
+  var API = String((window.REVIEW_CONFIG || {}).api || "").trim();
+  var DEMO = !API;
+  var D = window.RVDiff, esc = D.esc;
+  var PAGES = { home: "Home", academic: "Academic", professional: "Professional", tools: "Helpful Tools", contact: "Contact" };
+  var PAGE_ORDER = ["home", "academic", "professional", "tools", "contact"];
+  var SECTION_ORDER = ["Intro", "Focus areas", "Selected work", "Tools", "Education", "Publications", "Presentations", "Beyond the lab",
+    "Experience", "Projects", "In the media", "Bailey Design Trials", "Cracking Test Analyzer"];
+  var app = document.getElementById("app");
+  var data = null, filt = { who: "", status: "open", page: "" };
+
+  function lsGet(k, d) { try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } }
+  function lsSet(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+  function toast(m) { var t = document.getElementById("toast"); t.textContent = m; t.classList.add("on"); clearTimeout(toast.t); toast.t = setTimeout(function () { t.classList.remove("on"); }, 1800); }
+  function when(iso) {
+    if (!iso) return "";
+    var d = new Date(iso); if (isNaN(d)) return "";
+    return d.toLocaleDateString(undefined, { month: "short", day: "numeric" }) + ", " + d.toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" });
+  }
+  function where(s) { return (PAGES[s.page] || "Overall") + (s.section && s.section !== "Overall" ? " › " + s.section : ""); }
+  function blockNum(k) { var n = parseInt(String(k).split("|")[2], 10); return isNaN(n) ? 0 : n; }
+  function secIdx(s) { var i = SECTION_ORDER.indexOf(s); return i < 0 ? 99 : i; }
+
+  /* key: from the link once, then remembered in this browser */
+  var params = new URLSearchParams(location.search);
+  var KEY = params.get("k") || lsGet("rv-admin-key", "");
+  if (params.get("k")) { lsSet("rv-admin-key", KEY); history.replaceState(null, "", location.pathname); }
+
+  function load() {
+    if (DEMO) {
+      var st = lsGet("rv-demo-status", {});
+      var list = lsGet("rv-demo-suggestions", []).map(function (s) {
+        return { id: s.block, block: s.block, page: s.page, section: s.section, original: s.original, suggested: s.suggested,
+          comment: s.comment, updated: s.updated, created: s.updated, reviewer: "You (demo)", status: st[s.block] || "open" };
+      });
+      return Promise.resolve({ ok: true, demo: true, reviewers: [{ name: "You (demo)", token: "", active: true, count: list.length, lastVisit: "", done: "" }], suggestions: list });
+    }
+    if (!KEY) return Promise.resolve({ ok: false, error: "no key" });
+    return fetch(API + "?action=admin&k=" + encodeURIComponent(KEY), { cache: "no-store" }).then(function (r) { return r.json(); });
+  }
+  function setStatus(s, status) {
+    var prev = s.status;
+    s.status = status;
+    render();
+    if (DEMO) { var st = lsGet("rv-demo-status", {}); st[s.id] = status; lsSet("rv-demo-status", st); return; }
+    fetch(API, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify({ action: "status", k: KEY, id: s.id, status: status }) })
+      .then(function (r) { return r.json(); })
+      .then(function (res) { if (!res || !res.ok) throw new Error(); })
+      .catch(function () { s.status = prev; render(); toast("Could not save. Try again."); });
+  }
+
+  function keyForm(msg) {
+    app.innerHTML = '<div class="box keyform"><p class="kick">Private</p><h2 style="margin-top:.4rem">Dashboard key</h2>' +
+      '<p class="summary">' + esc(msg) + ' Open the Google Sheet, then <b>Site review &rsaquo; Show dashboard link</b>.</p>' +
+      '<input id="k" placeholder="Paste the key here" autocomplete="off"><button class="btn" id="go">Open</button></div>';
+    document.getElementById("go").onclick = function () { KEY = document.getElementById("k").value.trim(); lsSet("rv-admin-key", KEY); boot(); };
+  }
+
+  function reviewersHtml() {
+    var base = data.reviewUrl || new URL("./", location.href).href;
+    var rows = data.reviewers.map(function (r) {
+      var st = !r.active ? '<span class="pill pill--off">Link off</span>' : r.done ? '<span class="pill pill--done">Done</span>' :
+        r.lastVisit ? '<span class="pill pill--wait">Reviewing</span>' : '<span class="pill pill--wait">Not opened</span>';
+      return "<tr><td><b>" + esc(r.name) + "</b></td><td>" + st + "</td><td>" + r.count + '</td><td class="hide-sm">' + esc(when(r.lastVisit) || "—") + "</td>" +
+        "<td>" + (r.token ? '<button class="copy" data-copy="' + esc(base + "?r=" + r.token) + '">Copy link</button>' : "") + "</td></tr>";
+    }).join("");
+    return '<h2>Reviewers</h2><div class="box"><table><thead><tr><th>Name</th><th>Status</th><th>Edits</th><th class="hide-sm">Last visit</th><th></th></tr></thead><tbody>' +
+      (rows || '<tr><td colspan="5" class="empty">No reviewers yet. In the Sheet, use Site review &rsaquo; Add a reviewer.</td></tr>') + "</tbody></table></div>";
+  }
+
+  function suggHtml(s, showOrig) {
+    var changed = D.changed(s.original, s.suggested) && s.page !== "general";
+    return '<div class="sugg ' + (s.status === "accepted" ? "is-accepted" : s.status === "rejected" ? "is-rejected" : "") + '" style="padding-left:' + (s.status === "accepted" ? ".7rem" : "0") + '">' +
+      '<div class="sugg__head"><span class="who">' + esc(s.reviewer) + '</span><span class="when">' + esc(when(s.updated)) + "</span>" +
+      '<span class="st">' +
+        '<button data-id="' + esc(s.id) + '" data-st="accepted" class="' + (s.status === "accepted" ? "on-accepted" : "") + '">Accept</button>' +
+        '<button data-id="' + esc(s.id) + '" data-st="rejected" class="' + (s.status === "rejected" ? "on-rejected" : "") + '">Reject</button>' +
+        (s.status !== "open" ? '<button data-id="' + esc(s.id) + '" data-st="open">Undo</button>' : "") +
+      "</span></div>" +
+      (showOrig ? '<div class="warn">Made against older text: ' + esc(s.original) + "</div>" : "") +
+      (changed ? '<div class="diff">' + D.toHtml(s.original, s.suggested) + "</div>" : "") +
+      (s.comment ? '<div class="note"><b>' + (changed ? "Comment" : "Comment only") + "</b>" + esc(s.comment) + "</div>" : "") +
+      "</div>";
+  }
+
+  function visible() {
+    return data.suggestions.filter(function (s) {
+      return (!filt.who || s.reviewer === filt.who) && (!filt.status || s.status === filt.status) && (!filt.page || s.page === filt.page);
+    });
+  }
+
+  function render() {
+    var list = visible();
+    var all = data.suggestions;
+    var counts = { open: 0, accepted: 0, rejected: 0 };
+    all.forEach(function (s) { counts[s.status] = (counts[s.status] || 0) + 1; });
+    var who = data.reviewers.map(function (r) { return r.name; });
+    var opt = function (v, label, cur) { return '<option value="' + esc(v) + '"' + (v === cur ? " selected" : "") + ">" + esc(label) + "</option>"; };
+
+    var html = (data.demo ? '<div class="demo"><b>Demo mode.</b> No Google Sheet is connected yet, so this shows suggestions made in this browser on the review copy.</div>' : "") +
+      reviewersHtml() +
+      '<h2>Suggestions</h2>' +
+      '<p class="summary">' + counts.open + " open &middot; " + counts.accepted + " accepted &middot; " + counts.rejected + " rejected</p>" +
+      '<div class="tools">' +
+        '<label><span class="mono">Status</span><select data-f="status">' + opt("open", "Open", filt.status) + opt("accepted", "Accepted", filt.status) + opt("rejected", "Rejected", filt.status) + opt("", "All", filt.status) + "</select></label>" +
+        '<label><span class="mono">Reviewer</span><select data-f="who">' + opt("", "Everyone", filt.who) + who.map(function (w) { return opt(w, w, filt.who); }).join("") + "</select></label>" +
+        '<label><span class="mono">Page</span><select data-f="page">' + opt("", "All pages", filt.page) + PAGE_ORDER.map(function (p) { return opt(p, PAGES[p], filt.page); }).join("") + opt("general", "Overall comments", filt.page) + "</select></label>" +
+        '<span class="spacer"></span><button class="btn btn--line" id="export">Copy accepted changes</button>' +
+      "</div><div id=\"out\"></div>";
+
+    if (!list.length) html += '<div class="box empty">Nothing here with these filters.</div>';
+
+    // overall comments first, then pages in site order, blocks in reading order
+    var general = list.filter(function (s) { return s.page === "general"; });
+    if (general.length) {
+      html += '<section class="page"><h3>Overall comments</h3><div class="box block">' + general.map(function (s) { return suggHtml(s, false); }).join("") + "</div></section>";
+    }
+    PAGE_ORDER.forEach(function (p) {
+      var inPage = list.filter(function (s) { return s.page === p; });
+      if (!inPage.length) return;
+      var groups = {};
+      inPage.forEach(function (s) { (groups[s.block] = groups[s.block] || []).push(s); });
+      var keys = Object.keys(groups).sort(function (a, b) {
+        var sa = groups[a][0].section, sb = groups[b][0].section;
+        return secIdx(sa) - secIdx(sb) || (sa < sb ? -1 : sa > sb ? 1 : 0) || blockNum(a) - blockNum(b);
+      });
+      html += '<section class="page"><h3>' + esc(PAGES[p]) + "</h3>" + keys.map(function (k) {
+        var g = groups[k];
+        var base = g.map(function (s) { return s.original; }).sort(function (a, b) {
+          return g.filter(function (s) { return s.original === b; }).length - g.filter(function (s) { return s.original === a; }).length;
+        })[0];
+        return '<div class="box block"><span class="mono">' + esc(g[0].section) + '</span><div class="orig">' + esc(base) + "</div>" +
+          g.map(function (s) { return suggHtml(s, s.original !== base); }).join("") + "</div>";
+      }).join("") + "</section>";
+    });
+
+    app.innerHTML = html;
+
+    [].forEach.call(app.querySelectorAll("select[data-f]"), function (sel) {
+      sel.onchange = function () { filt[sel.getAttribute("data-f")] = sel.value; render(); };
+    });
+    [].forEach.call(app.querySelectorAll("[data-st]"), function (b) {
+      b.onclick = function () {
+        var s = data.suggestions.filter(function (x) { return x.id === b.getAttribute("data-id"); })[0];
+        if (s) setStatus(s, b.getAttribute("data-st"));
+      };
+    });
+    [].forEach.call(app.querySelectorAll("[data-copy]"), function (b) {
+      b.onclick = function () { copy(b.getAttribute("data-copy"), "Link copied"); };
+    });
+    document.getElementById("export").onclick = exportAccepted;
+  }
+
+  function copy(text, msg) {
+    if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(function () { toast(msg); }, function () { fallback(text); });
+    else fallback(text);
+  }
+  function fallback(text) {
+    document.getElementById("out").innerHTML = '<textarea class="out" readonly></textarea>';
+    var t = document.querySelector("textarea.out"); t.value = text; t.select();
+  }
+
+  function exportAccepted() {
+    var acc = data.suggestions.filter(function (s) { return s.status === "accepted"; });
+    if (!acc.length) { toast("Nothing accepted yet"); return; }
+    acc.sort(function (a, b) {
+      return (a.page === "general" ? -1 : PAGE_ORDER.indexOf(a.page)) - (b.page === "general" ? -1 : PAGE_ORDER.indexOf(b.page)) ||
+        secIdx(a.section) - secIdx(b.section) || blockNum(a.block) - blockNum(b.block);
+    });
+    var lines = ["Website edits to apply on akashto.com (accepted in the review dashboard)", ""];
+    acc.forEach(function (s, i) {
+      lines.push((i + 1) + ". " + where(s) + "  (from " + s.reviewer + ")");
+      if (s.page !== "general" && D.changed(s.original, s.suggested)) {
+        lines.push("   Current:   " + s.original);
+        lines.push("   Change to: " + s.suggested);
+      } else if (s.page !== "general") {
+        lines.push("   Text:      " + s.original);
+      }
+      if (s.comment) lines.push("   Comment:   " + s.comment);
+      lines.push("");
+    });
+    copy(lines.join("\n"), "Copied " + acc.length + " accepted change" + (acc.length === 1 ? "" : "s"));
+  }
+
+  function boot() {
+    app.innerHTML = '<p class="empty">Loading&hellip;</p>';
+    load().then(function (res) {
+      if (!res || !res.ok) { keyForm(res && res.error === "no key" ? "This page needs your private key." : "That key did not work."); return; }
+      data = res;
+      data.suggestions.forEach(function (s) { if (!s.status) s.status = "open"; });
+      render();
+    }).catch(function () {
+      app.innerHTML = '<div class="box empty">Could not reach the Google Sheet. Check the web app URL in config.js, then refresh.</div>';
+    });
+  }
+  boot();
+})();
+</script>
+</body>
+</html>
