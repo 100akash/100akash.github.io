@@ -156,6 +156,7 @@ p{margin:0 0 1rem}p:last-child{margin-bottom:0}
 .head p{color:var(--muted);margin-top:.75rem;max-width:50ch}
 
 .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(.9rem,1.8vw,1.2rem)}
+.focus-grid{gap:1rem}
 .cards>article{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:clamp(1.2rem,2vw,1.6rem);
   position:relative;transition:box-shadow .25s ease,transform .25s ease}
 .cards>article:hover{box-shadow:0 14px 30px rgba(19,41,75,.1);transform:translateY(-3px)}
@@ -636,7 +637,7 @@ main{position:relative;flex:1 0 auto}
   <section class="band" style="padding-top:0">
     <div class="wrap">
       <div class="divider mono" data-reveal><b>Focus areas</b></div>
-      <div class="cards" data-reveal style="grid-template-columns:repeat(3,1fr);gap:1rem">
+      <div class="cards focus-grid" data-reveal>
         <article class="focus-card focus-card--secondary">
           <div class="focus-card__badge"><svg viewBox="40 40 180 180" role="img"><title>Aggregate, RAP, and binder icon</title>
             <defs><clipPath id="clipMaterials"><circle cx="130" cy="130" r="90"/></clipPath></defs>
