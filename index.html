@@ -452,12 +452,7 @@ main{position:relative;flex:1 0 auto}
     <path d="M4 8h3l1.5-2h7L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1Z"/>
     <circle cx="12" cy="13" r="3.4"/>
   </symbol>
-  <symbol id="ic-gradation" viewBox="0 0 48 48" fill="none" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M8 6v34h34" stroke="currentColor" stroke-width="2.4"/>
-    <path d="M17 8v31M26 8v31M33 8v31" stroke="currentColor" stroke-width="1.2" stroke-dasharray="2 3" opacity=".45"/>
-    <path d="M10 37c6-1 10-2 14-6s5-14 9-20 5-3 7-3" stroke="#FF5F05" stroke-width="3"/>
-    <circle cx="10" cy="37" r="2" fill="#FF5F05"/><circle cx="24" cy="31" r="2" fill="#FF5F05"/><circle cx="33" cy="11" r="2" fill="#FF5F05"/><circle cx="40" cy="8" r="2" fill="#FF5F05"/>
-  </symbol>
+  <symbol id="ic-gradation" viewBox="0 0 48 48"><g transform="scale(1.5)"><polygon points="15.8,13.0 19.7,16.3 18.1,19.0 14.2,18.4 13.0,15.6" fill="#FF5F05"/><polygon points="14.0,10.2 15.2,12.4 11.7,15.0 10.2,13.6 10.1,10.7 11.3,9.8" fill="#DCD8D1"/><polygon points="15.4,9.7 16.5,12.2 20.5,14.4 22.7,13.6 21.2,8.7 16.5,8.2" fill="#C2BDB5"/><polygon points="13.6,19.0 18.7,20.9 18.7,23.2 12.2,27.0 10.9,22.2" fill="#E6E3DD"/><polygon points="9.9,15.0 11.1,15.6 12.0,18.5 9.4,21.7 6.0,20.4 6.1,16.7" fill="#B4AFA7"/><polygon points="9.8,13.9 5.6,15.9 4.0,13.1 5.4,10.9 8.4,11.8" fill="#D3CFC8"/><polygon points="23.5,14.8 30.1,16.8 29.9,19.3 28.4,23.6 25.0,26.0 20.7,23.6 20.4,19.7 22.2,17.0" fill="#F3F1ED"/><polygon points="15.0,9.0 12.0,8.8 11.0,5.4 11.2,3.4 14.7,4.5 16.2,7.3" fill="#DCD8D1"/></g></symbol>
   <symbol id="ic-loaddisp" viewBox="0 0 48 48" fill="none" stroke-linecap="round" stroke-linejoin="round">
     <path d="M8 6v34h34" stroke="currentColor" stroke-width="2.4"/>
     <path d="M10 39c3-6 6-18 10-25 1.5-2.5 3-2.5 4.5 0 3 6 6 14 17 20" stroke="#FF5F05" stroke-width="3"/>
@@ -1041,7 +1036,7 @@ main{position:relative;flex:1 0 auto}
 <section class="view" id="view-tools">
   <header class="phead"><div class="wrap">
     <h1>Helpful Tools</h1>
-    <p>Small tools from my research. They run in your browser, and nothing you enter is uploaded.</p>
+    <p style="max-width:none">Small tools from my research. They run in your browser, and nothing you enter is uploaded.</p>
   </div></header>
 
   <section class="band" style="padding-top:0"><div class="wrap">
@@ -1051,7 +1046,6 @@ main{position:relative;flex:1 0 auto}
         <div class="tool-body">
           <h3>Bailey Design Trials</h3>
           <p>Plan asphalt mix trials from the stockpiles you have. Predicts VMA and binder content, then suggests the next blend as you test.</p>
-          <div class="proj-meta"><span class="proj-sponsor">Mix design</span><span class="proj-sponsor">Bailey Method</span><span class="proj-amt">SMA and dense-graded</span></div>
           <div class="tool-links">
             <a class="tool-open" href="bailey-design-trials/" target="_blank" rel="noopener">Open the tool &rarr;</a>
             <a class="tool-src" href="https://github.com/100akash/bailey-design-trials" target="_blank" rel="noopener">Source code</a>
@@ -1063,7 +1057,6 @@ main{position:relative;flex:1 0 auto}
         <div class="tool-body">
           <h3>Cracking Test Analyzer</h3>
           <p>Process load-displacement files from asphalt cracking tests. Maps the columns, checks the loading rate, fits the curves, and exports Excel files and a PDF report.</p>
-          <div class="proj-meta"><span class="proj-sponsor">I-FIT</span><span class="proj-sponsor">IDEAL-CT</span><span class="proj-sponsor">DONUT</span><span class="proj-sponsor">SCB</span><span class="proj-sponsor">SLT-SCB</span><span class="proj-sponsor">DCT</span><span class="proj-sponsor">IDT</span></div>
           <div class="tool-links">
             <a class="tool-open" href="cracking-index/" target="_blank" rel="noopener">Open the tool &rarr;</a>
             <a class="tool-src" href="https://github.com/100akash/cracking-index" target="_blank" rel="noopener">Source code</a>
