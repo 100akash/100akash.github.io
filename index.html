@@ -157,6 +157,16 @@ p{margin:0 0 1rem}p:last-child{margin-bottom:0}
 
 .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(.9rem,1.8vw,1.2rem)}
 .focus-grid{gap:1rem}
+.tools-line{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem 1.4rem;margin-top:1.3rem;padding:.9rem 1.1rem;border:1px dashed var(--line);border-radius:10px;background:rgba(19,41,75,.025)}
+.tools-line .mono{color:var(--accent)}
+.tools-line a{display:inline-flex;align-items:center;gap:.55rem;font-weight:600;color:var(--primary);text-decoration:none}
+.tools-line a:hover{color:var(--accent)}
+.tools-line svg{width:28px;height:28px;border-radius:7px;background:var(--primary);color:#fff;padding:3px}
+.tools-line a.tools-line__all{margin-left:auto;font-weight:400;font-size:.88rem;color:var(--muted);text-decoration:underline;text-underline-offset:3px}
+.rows.is-collapsed>.row:nth-child(n+7){display:none}
+.more-btn{margin-top:1.1rem;cursor:pointer}
+@media (max-width:640px){.tools-line a.tools-line__all{margin-left:0}}
+
 .cards>article{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:clamp(1.2rem,2vw,1.6rem);
   position:relative;transition:box-shadow .25s ease,transform .25s ease}
 .cards>article:hover{box-shadow:0 14px 30px rgba(19,41,75,.1);transform:translateY(-3px)}
@@ -594,6 +604,7 @@ main{position:relative;flex:1 0 auto}
       <a href="#/professional" data-route="professional">Professional</a>
       <a href="#/tools" data-route="tools">Helpful Tools</a>
       <a href="#/contact" data-route="contact">Contact</a>
+      <a href="files/Akash_Bajaj_CV.pdf" target="_blank" rel="noopener">CV</a>
     </nav>
   </div>
 </header>
@@ -737,6 +748,11 @@ main{position:relative;flex:1 0 auto}
         <article class="row"><span class="mono row__id">2026</span><div><h3><a href="https://www.tandfonline.com/doi/full/10.1080/10298436.2026.2698794" target="_blank" rel="noopener">Development of a simplified low-temperature SCB test protocol to characterise cracking potential of airfield mixtures</a></h3><p class="row__meta">International Journal of Pavement Engineering, Vol. 27</p></div><span class="row__side"><svg><use href="#ic-book"/></svg><span class="mono">Journal</span></span></article>
         <article class="row"><span class="mono row__id">2020</span><div><h3><a href="https://www.sciencedirect.com/science/article/pii/S0950061820318699" target="_blank" rel="noopener">Evaluation and classification of recycling agents for asphalt binders</a></h3><p class="row__meta">Construction and Building Materials, Vol. 260, p. 119864</p></div><span class="row__side"><svg><use href="#ic-book"/></svg><span class="mono">Journal</span></span></article>
       </div>
+      <div class="tools-line" data-reveal>
+        <span class="mono">Open tools</span>
+        <a href="bailey-design-trials/" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#ic-gradation"/></svg>Bailey Design Trials</a>
+        <a href="cracking-index/" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#ic-loaddisp"/></svg>Cracking Test Analyzer</a>
+        <a class="tools-line__all" href="#/tools">About the tools</a>
     </div>
   </section>
 
@@ -825,7 +841,7 @@ main{position:relative;flex:1 0 auto}
 
   <section class="band" style="padding-top:0"><div class="wrap">
     <div class="divider mono" data-reveal><b>Presentations</b></div>
-    <div class="rows" data-reveal>
+    <div class="rows is-collapsed" id="talks" data-reveal>
       <article class="row"><span class="row__id"><span class="mono yr">2026</span><span class="loc">Online</span></span><div><h3><a href="https://www.youtube.com/watch?v=DUl9RhroYhg" target="_blank" rel="noopener">Balanced Mix Design for Airfield Pavements: Service-Temperature Cracking Potential</a></h3><p class="row__meta">Al-Qadi, Ozer &amp; <b class="au">Bajaj</b> &mdash; <em>NAPA / FAA Airport Asphalt Pavement Technology Program Webinar</em></p></div><span class="row__side"><svg><use href="#ic-webinar"/></svg><span class="mono">Webinar</span></span></article>
       <article class="row"><span class="row__id"><span class="mono yr">2026</span><span class="loc">Online</span></span><div><h3><a href="https://www.youtube.com/watch?v=uT6wKzINnOQ" target="_blank" rel="noopener">Balanced Mix Design for Airfield Pavements: Low-Temperature Cracking Potential</a></h3><p class="row__meta">Al-Qadi, Dave &amp; <b class="au">Bajaj</b> &mdash; <em>NAPA / FAA Airport Asphalt Pavement Technology Program Webinar</em></p></div><span class="row__side"><svg><use href="#ic-webinar"/></svg><span class="mono">Webinar</span></span></article>
       <article class="row"><span class="row__id"><span class="mono yr">2026</span><span class="loc">Ljubljana, Slovenia</span></span><div><h3><a href="https://doi.org/10.5281/zenodo.20662584" target="_blank" rel="noopener">Characterizing Low Temperature Cracking Potential of Asphalt Airfield Pavements</a></h3><p class="row__meta"><b class="au">Bajaj</b>, Modi, Al-Qadi, Dave &amp; Sias &mdash; <em>12th International Conference on the Bearing Capacity of Roads, Railways and Airfields</em></p></div><span class="row__side"><svg><use href="#ic-podium"/></svg><span class="mono">Podium</span></span></article>
@@ -840,6 +856,7 @@ main{position:relative;flex:1 0 auto}
       <article class="row"><span class="row__id"><span class="mono yr">2025</span><span class="loc">Washington, D.C.</span></span><div><h3><a href="https://annualmeeting.mytrb.org/FileUpload/FullPaper?ID=61734&amp;SessionID=22560&amp;ConferenceID=13" target="_blank" rel="noopener">Characterization of Cracking Potential of Airfield Asphalt Pavements</a></h3><p class="row__meta"><b class="au">Bajaj</b> &amp; Al-Qadi &mdash; <em>104th Transportation Research Board Annual Meeting</em></p></div><span class="row__side"><svg><use href="#ic-podium"/></svg><span class="mono">Podium</span></span></article>
       <article class="row"><span class="row__id"><span class="mono yr">2018</span><span class="loc">Jacksonville, FL</span></span><div><h3>Evaluating the Effect of Recycling Agent Type on Binder Blend Performance</h3><p class="row__meta"><b class="au">Bajaj</b>, Epps Martin &amp; Ar&aacute;mbula-Mercado &mdash; <em>94th Association of Asphalt Paving Technologists Annual Meeting</em></p></div><span class="row__side"><svg><use href="#ic-poster"/></svg><span class="mono">Poster</span></span></article>
     </div>
+    <button class="btn btn--line more-btn" type="button" aria-controls="talks" aria-expanded="false" data-more="13">Show all 13 presentations <i></i></button>
   </div></section>
 
   <section class="band" style="padding-top:0"><div class="wrap">
@@ -1349,6 +1366,15 @@ main{position:relative;flex:1 0 auto}
     buildRail(); onScroll();
     setTimeout(function(){ buildRail(); onScroll() },600);
   }
+  [].forEach.call(document.querySelectorAll("[data-more]"),function(b){
+    var list=document.getElementById(b.getAttribute("aria-controls")),n=b.getAttribute("data-more");
+    b.addEventListener("click",function(){
+      var open=list.classList.toggle("is-collapsed")===false;
+      b.setAttribute("aria-expanded",open?"true":"false");
+      b.firstChild.nodeValue=open?"Show the 6 most recent ":"Show all "+n+" presentations ";
+      buildRail();onScroll();
+    });
+  });
   addEventListener("hashchange",route);route();
 })();
 </script>
