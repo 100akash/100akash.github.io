@@ -63,17 +63,14 @@ p{margin:0 0 1rem}p:last-child{margin-bottom:0}
 .mark:hover::after{width:100%}
 .mark b em{font-style:normal;font-weight:600;color:var(--muted)}
 
-/* subpages: bolder, boxed, orange — the one place site sections are navigated from */
-.links{display:flex;gap:.7rem}
-.links a{position:relative;overflow:hidden;font-family:var(--mono);font-size:.74rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;text-decoration:none;
-  color:var(--primary);padding:.8rem 1.4rem;border:2px solid var(--accent);border-radius:7px;background:rgba(255,95,5,.07);
-  transition:background .2s ease,color .2s ease,transform .2s ease,box-shadow .2s ease}
-.links a::before{content:"";position:absolute;top:0;left:-60%;width:35%;height:100%;
-  background:linear-gradient(115deg,transparent,rgba(255,255,255,.7),transparent);
-  transform:skewX(-18deg);transition:left .55s ease;pointer-events:none}
-.links a:hover::before{left:130%}
-.links a:hover{background:var(--accent);color:#fff;transform:translateY(-2px);box-shadow:0 10px 22px rgba(255,95,5,.32)}
-.links a.is-active{background:var(--accent);color:#fff}
+/* subpages: one slim bar, icon + label, current page in navy */
+.links{display:flex;gap:0;border:1px solid var(--line);border-radius:9px;background:rgba(255,255,255,.6);padding:3px}
+.links a{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--mono);font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;
+  color:var(--primary);padding:.5rem .95rem;border-radius:6px;transition:background .2s ease,color .2s ease}
+.links a svg{width:17px;height:17px;flex:none;color:var(--accent);transition:color .2s ease}
+.links a:hover{background:rgba(19,41,75,.07)}
+.links a.is-active{background:var(--primary);color:#fff}
+.links a.is-active svg{color:#fff}
 .burger{display:none;background:none;border:1px solid var(--line);padding:.45rem .65rem;font-family:var(--mono);font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;color:var(--ink)}
 
 /* ---------- left sidebar: translucent asphalt photo ---------- */
@@ -448,7 +445,7 @@ main{position:relative;flex:1 0 auto}
 }
 @media (max-width:720px){
   .links{position:fixed;top:var(--nav-h);left:0;right:0;background:var(--bg);border-bottom:1px solid var(--line);
-    flex-direction:column;padding:.4rem;display:none;gap:.3rem}
+    flex-direction:column;padding:.4rem;display:none;gap:.3rem;border-width:0 0 1px;border-radius:0}
   .links.is-open{display:flex}.links a{padding:.8rem 1rem}
   .burger{display:block}
 }
@@ -462,6 +459,9 @@ main{position:relative;flex:1 0 auto}
 <body>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="ic-cap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 9.5 12 5l9.5 4.5L12 14z"/><path d="M6.5 11.5v4.2c0 1.3 2.5 2.8 5.5 2.8s5.5-1.5 5.5-2.8v-4.2"/><path d="M21.5 9.5v5"/></symbol>
+  <symbol id="ic-briefcase" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5.5A1.5 1.5 0 0 1 10.5 4h3A1.5 1.5 0 0 1 15 5.5V7"/><path d="M3 12.5h18"/><path d="M11 12.5v1.5h2v-1.5"/></symbol>
+  <symbol id="ic-wrench" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 3.5a4.5 4.5 0 0 0 5.9 5.9l-2.1 2.1a4.5 4.5 0 0 1-5.7.6L5.4 19.3a1.8 1.8 0 0 1-2.6-2.6l7.2-7.2a4.5 4.5 0 0 1 .6-5.7z"/></symbol>
   <symbol id="plane" viewBox="0 0 24 24">
     <path d="M12 1 L13.4 9.2 L22 13 L22 14.6 L13.4 12.6 L13.4 18.4 L16.6 20.6 L16.6 22 L12 20.6
              L7.4 22 L7.4 20.6 L10.6 18.4 L10.6 12.6 L2 14.6 L2 13 L10.6 9.2 Z"/>
@@ -610,10 +610,10 @@ main{position:relative;flex:1 0 auto}
     </div>
     <button class="burger" id="burger" aria-expanded="false" aria-controls="links">Menu</button>
     <nav class="links" id="links" aria-label="Main">
-      <a href="#/academic" data-route="academic">Academic</a>
-      <a href="#/professional" data-route="professional">Professional</a>
-      <a href="#/tools" data-route="tools">Helpful Tools</a>
-      <a href="#/contact" data-route="contact">Contact</a>
+      <a href="#/academic" data-route="academic"><svg aria-hidden="true"><use href="#ic-cap"/></svg><span>Academic</span></a>
+      <a href="#/professional" data-route="professional"><svg aria-hidden="true"><use href="#ic-briefcase"/></svg><span>Professional</span></a>
+      <a href="#/tools" data-route="tools"><svg aria-hidden="true"><use href="#ic-wrench"/></svg><span>Tools</span></a>
+      <a href="#/contact" data-route="contact"><svg aria-hidden="true"><use href="#ic-mail"/></svg><span>Contact</span></a>
     </nav>
   </div>
 </header>
