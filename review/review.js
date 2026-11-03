@@ -10,7 +10,7 @@
   var params = new URLSearchParams(location.search);
   var TOKEN = (params.get("r") || "").trim();
   var D = window.RVDiff;
-  var PAGES = { home: "Home", academic: "Academic", professional: "Professional", tools: "Helpful Tools", contact: "Contact" };
+  var PAGES = { home: "Home", academic: "Academic", professional: "Professional", tools: "Tools", contact: "Contact" };
   var SEL = "h1,h2,h3,p,li,.tl-meta,.tl-org,.tl-loc,.tl-pill,.proj-sponsor,.proj-amt,.status,.dmeta span,.ticket__value," +
     ".ticket__stub span,.tool-go,.degree-trigger,.btn,.cv-cta__title,.cv-cta__meta,.yr,.loc,.row__side .mono";
   var SKIP = ".divider,.card-kicker,.course-drawer-overlay,svg,.rv-ui";
