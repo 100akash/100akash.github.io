@@ -772,9 +772,9 @@ main{position:relative;flex:1 0 auto}
           <div class="tool-ic" aria-hidden="true"><svg><use href="#ic-gradation"/></svg></div>
           <div class="tool-body"><h3>Bailey Design Trials</h3><p>Plan asphalt mix trials with the Bailey Method.</p><span class="tool-go">Open the tool &rarr;</span></div>
         </a>
-        <a class="tool tool--link" href="cracking-index/" target="_blank" rel="noopener">
+        <a class="tool tool--link" href="mix-test-analyzer/" target="_blank" rel="noopener">
           <div class="tool-ic" aria-hidden="true"><svg><use href="#ic-loaddisp"/></svg></div>
-          <div class="tool-body"><h3>Cracking Test Analyzer</h3><p>Process load-displacement data from common asphalt cracking tests.</p><span class="tool-go">Open the tool &rarr;</span></div>
+          <div class="tool-body"><h3>Mix Test Analyzer</h3><p>Process load-displacement data from common asphalt cracking and rutting tests.</p><span class="tool-go">Open the tool &rarr;</span></div>
         </a>
       </div>
     </div>
@@ -1097,15 +1097,15 @@ main{position:relative;flex:1 0 auto}
         </div>
       </article>
     </div>
-    <div class="divider mono" data-reveal><b>Cracking Test Analyzer</b></div>
+    <div class="divider mono" data-reveal><b>Mix Test Analyzer</b></div>
     <div class="tools-grid" data-reveal>
       <article class="tool">
         <div class="tool-ic" aria-hidden="true"><svg><use href="#ic-loaddisp"/></svg></div>
         <div class="tool-body">
-          <p>Process load-displacement files from asphalt cracking tests. Maps the columns, checks the loading rate, fits the curves, and exports Excel files and a PDF report.</p>
+          <p>Process load-displacement files from asphalt cracking and rutting tests. Maps the columns, checks the loading rate, fits the curves, and exports Excel files and a PDF report.</p>
           <div class="tool-links">
-            <a class="tool-open" href="cracking-index/" target="_blank" rel="noopener">Open the tool &rarr;</a>
-            <a class="tool-src" href="https://github.com/100akash/cracking-index" target="_blank" rel="noopener">Source code</a>
+            <a class="tool-open" href="mix-test-analyzer/" target="_blank" rel="noopener">Open the tool &rarr;</a>
+            <a class="tool-src" href="https://github.com/100akash/mix-test-analyzer" target="_blank" rel="noopener">Source code</a>
           </div>
         </div>
       </article>
@@ -1219,7 +1219,7 @@ main{position:relative;flex:1 0 auto}
   routeFg.style.strokeDashoffset=pathLen;
 
   var RAIL_CODES={"Focus areas":"FOC","Selected work":"WRK","Education":"EDU","Publications":"PUB",
-    "Presentations":"TLK","Beyond the lab":"LAB","Experience":"EXP","Projects":"PRJ","In the media":"MED","Tools":"TLS","Bailey Design Trials":"BDT","Cracking Test Analyzer":"CTA"};
+    "Presentations":"TLK","Beyond the lab":"LAB","Experience":"EXP","Projects":"PRJ","In the media":"MED","Tools":"TLS","Bailey Design Trials":"BDT","Mix Test Analyzer":"MTA"};
   function codeFor(t){
     t=(t||"").trim();
     return RAIL_CODES[t] || t.replace(/[^A-Za-z]/g,"").slice(0,3).toUpperCase() || "SEC";
